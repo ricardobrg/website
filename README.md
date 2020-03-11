@@ -1,4 +1,4 @@
-# Website do [Flutter][] em português brasileiro pt-br ![Flutter logo][]
+# Website do [Flutter][] em português brasileiro pt-br <img src="./src/images/logo_flutter_brasil_green.svg" width="72">
 
 ## Issues, bugs e pedidos
 
