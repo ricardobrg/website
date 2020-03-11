@@ -1,18 +1,30 @@
-# [Flutter][]'s website ![Flutter logo][]
+# Website do [Flutter][] em português brasileiro pt-br ![Flutter logo][]
 
-[![Build Status][]][Repo on Travis]
+## Issues, bugs e pedidos
 
-## Issues, bugs, and requests
+Todas as pessoas são bem vindas a contribuir!
+Por favor registre seu pedido nas [issues do repositório](https://github.com/ricardobrg/website/new).
 
-We welcome contributions and feedback on our website!
-Please file a request in our
-[issue tracker](https://github.com/flutter/website/issues/new)
-and we'll take a look.
+Para fazer as traduções,na maioria das vezes, não será necessário 
+fazer o build de todo o site. Você conseguirá editar os textos na 
+própria interface do github ou em um editor de textos simples.
 
-For simple changes (such as to CSS and text), you probably don't need to
-build this site.  Often you can make changes using the GitHub UI.
+Para traduzir:
+- Faça um fork do repositório
+- Crie uma branch
+- Edite os arquivos
+- Commit na branch criada
+- Crie um pull request da sua branch
 
-If you want/need to build, read on.
+Após o merge da branch, atualize seu repositório e crie outra branch para continuar as traduções.
+
+## Escrevendo para o site do Flutter em pt-br
+
+Neste momento o objetivo é apenas a tradução do site e da documentação, como está.
+Se você quiser acrescentar algum conteúdo, escreva em inglês para o flutter.dev 
+e envie a tradução aqui depois de publicado.
+
+Para quem quiser fazer o build do website, seguem abaixo as instruções originais.
 
 ## Before you build this site
 
@@ -188,39 +200,6 @@ i  starting release process (may take several minutes)...
 
 ✔  Deploy complete!
 ```
-
-## Deploying to the official site
-
-Usually, official site deploys are performed by Travis. In the event that you
-need to manually deploy, use the deploy script and the `default` project:
-
-```
-./tool/shared/deploy.sh --local --robots ok default
-```
-
-## Writing for flutter.dev
-
-
-The [site-shared](https://github.com/dart-lang/site-shared) repo
-contains infrastructure shared by most of our Dart and Flutter websites.
-As a result, we've moved some of content of this README to the
-[docs](https://github.com/dart-lang/site-shared/docs)
-directory in the shared repo.
-
-For more information on using/writing for this repo,
-refer to the following docs:
-
-* [Infrastructure](https://github.com/dart-lang/site-shared/blob/master/doc/infrastructure.md)
-* [Markdown](https://github.com/dart-lang/site-shared/blob/master/doc/markdown.md)
-* [Examples](https://github.com/dart-lang/site-shared/blob/master/doc/examples.md)
-* [Code excerpts](https://github.com/dart-lang/site-shared/blob/master/doc/code-excerpts.md)
-
-Also check out the site-shared
-[wiki](https://github.com/dart-lang/site-shared/wiki):
-
-* [Images](https://github.com/dart-lang/site-shared/wiki/Images)
-* [Mobile friendly pages: tips & tricks](https://github.com/dart-lang/site-shared/wiki/Mobile-friendly-pages:-tips-&-tricks)
-* [Writing for Dart and Flutter websites](https://github.com/dart-lang/site-shared/wiki/Writing-for-Dart-and-Flutter-websites)
 
 [Flutter]: https://flutter.dev
 [Build Status]: https://travis-ci.org/flutter/website.svg?branch=master
