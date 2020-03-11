@@ -1,11 +1,32 @@
 # Website do [Flutter][] em português brasileiro pt-br <img src="./src/images/logo_flutter_brasil_green.svg" width="72">
 
+## AVISO
+Este é um repositório não-oficial e independente mantido pela 
+comunidade Flutter Brasil com contribuições espontâneas e 
+voluntárias. Nem este repositório nem a comunidade Flutter Brasil 
+são afiliados ou pertencem direta ou indiretamente à Google ou à Alphabet. 
+
+O nome "Flutter" e sua respectiva logo são marcas registradas de 
+propriedade do Google. Seguimos o manual de uso da marca para utilizar 
+o nome Flutter Brasil e suas variações e para a criação da logo da comunidade 
+Flutter Brasil. 
+
+## Disclaimer
+This is an unofficial and independent repository maintained by the Flutter 
+Brasil community with spontaneous and voluntary contributions. Nor the Flutter 
+Brasil community nor this repository are affiliated with or belongs directly 
+or indirectly to Google or Alphabet.
+
+“Flutter” name and the Flutter logo are trademarks owned by Google. We’ve 
+followed the branding guide in the official site for using the "Flutter 
+Brasil" name and its variations and creating Flutter Brasil Logo.
+
 ## Issues, bugs e pedidos
 
 Todas as pessoas são bem vindas a contribuir!
 Por favor registre seu pedido nas [issues do repositório](https://github.com/ricardobrg/flutter-br-website/issues/new).
 
-Para fazer as traduções,na maioria das vezes, não será necessário 
+Para fazer as traduções, na maioria das vezes, não será necessário 
 fazer o build de todo o site. Você conseguirá editar os textos na 
 própria interface do github ou em um editor de textos simples.
 
