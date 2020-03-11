@@ -3,7 +3,7 @@
 ## Issues, bugs e pedidos
 
 Todas as pessoas são bem vindas a contribuir!
-Por favor registre seu pedido nas [issues do repositório](https://github.com/ricardobrg/website/new).
+Por favor registre seu pedido nas [issues do repositório](https://github.com/ricardobrg/flutter-br-website/issues/new).
 
 Para fazer as traduções,na maioria das vezes, não será necessário 
 fazer o build de todo o site. Você conseguirá editar os textos na 
