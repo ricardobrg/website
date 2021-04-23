@@ -31,7 +31,7 @@ GestureDetector(
   onTap: () {
     final snackBar = SnackBar(content: Text("Tap"));
 
-    Scaffold.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   },
   // The custom button
   child: Container(
@@ -51,7 +51,7 @@ GestureDetector(
      button, see the [Add Material touch ripples][] recipe.
   2. Although this example creates a custom button,
      Flutter includes a handful of button implementations, such as:
-     [`RaisedButton`][], [`FlatButton`][], and
+     [`ElevatedButton`][], [`TextButton`][], and
      [`CupertinoButton`][].
 
 ## Interactive example
@@ -98,7 +98,7 @@ class MyButton extends StatelessWidget {
       onTap: () {
         final snackBar = SnackBar(content: Text("Tap"));
 
-        Scaffold.of(context).showSnackBar(snackBar);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       },
       // The custom button
       child: Container(
@@ -121,6 +121,6 @@ class MyButton extends StatelessWidget {
 
 [Add Material touch ripples]: /docs/cookbook/gestures/ripples
 [`CupertinoButton`]: {{site.api}}/flutter/cupertino/CupertinoButton-class.html
-[`FlatButton`]: {{site.api}}/flutter/material/FlatButton-class.html
+[`TextButton`]: {{site.api}}/flutter/material/TextButton-class.html
 [`GestureDetector`]: {{site.api}}/flutter/widgets/GestureDetector-class.html
-[`RaisedButton`]: {{site.api}}/flutter/material/RaisedButton-class.html
+[`ElevatedButton`]: {{site.api}}/flutter/material/ElevatedButton-class.html

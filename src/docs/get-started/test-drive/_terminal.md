@@ -2,8 +2,6 @@
 
 ## Create the app  {#create-app}
 
-{% include_relative _web-app.md  %}
-
 Use the `flutter create` command to create a new project:
 
 ```terminal
@@ -39,4 +37,8 @@ contains a simple demo app that uses [Material Components][].
 {% include_relative _try-hot-reload.md save_changes=save_changes %}
 {% include run-profile.md %}
 
+[trusted your computer]: /docs/get-started/install/macos#trust
+
 </div>
+
+

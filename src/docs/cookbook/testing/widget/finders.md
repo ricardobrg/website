@@ -1,5 +1,6 @@
 ---
 title: Find widgets
+description: How to use the Finder classes for testing widgets.
 prev:
   title: An introduction to widget testing
   path: /docs/cookbook/testing/widget/introduction
@@ -14,6 +15,10 @@ To locate widgets in a test environment, use the `Finder`
 classes. While it's possible to write your own `Finder` classes,
 it's generally more convenient to locate widgets using the tools
 provided by the [`flutter_test`][] package.
+
+During a `flutter run` session on a widget test, you can also
+interactively tap parts of the screen for the Flutter tool to
+print the suggested [`Finder`].
 
 This recipe looks at the [`find`][] constant provided by
 the `flutter_test` package, and demonstrates how

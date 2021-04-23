@@ -43,7 +43,7 @@ starter app template:
 
  1. Open the Command Palette
     (`Ctrl`+`Shift`+`P` (`Cmd`+`Shift`+`P` on macOS)).
- 1. Select the **Flutter: New Project** command and press `Enter`.
+ 1. Select the **Flutter: New Application Project** command and press `Enter`.
  1. Enter your desired **Project name**.
  1. Select a **Project location**.
 
@@ -71,7 +71,7 @@ enables the following:
   (**View > Problems** or `Ctrl`+`Shift`+`M`
   (`Cmd`+`Shift`+`M` on macOS))
   Any analysis issues are shown in the Problems pane:<br>
-  ![Problems pane]({% asset tools/vs-code/problems.png @path %}){:width="90%"}
+  ![Problems pane]({% asset tools/vs-code/problems.png @path %}){:.mw-100.pt-1}
 
 ## Running and debugging
 
@@ -91,7 +91,7 @@ enables the following:
   [Running DevTools from VS Code][] in the [DevTools][] docs.
 {{site.alert.end}}
 
-Start debugging by clicking **Debug > Start Debugging**
+Start debugging by clicking **Run > Start Debugging**
 from the main IDE window, or press `F5`.
 
 ### Selecting a target device
@@ -99,9 +99,8 @@ from the main IDE window, or press `F5`.
 When a Flutter project is open in VS Code,
 you should see a set of Flutter specific entries in the status bar,
 including a Flutter SDK version and a
-device name (or the message **No Devices**).
-
-![Flutter device]({% asset tools/vs-code/device_status_bar.png @path %}){:width="450px"}
+device name (or the message **No Devices**):<br>
+![VS Code status bar][]{:.mw-100.pt-1}
 
 {{site.alert.note}}
   * If you do not see a Flutter version number or device info,
@@ -120,24 +119,17 @@ However, if you have multiple devices/simulators connected, click
 at the top of the screen. Select the device you want to use for
 running or debugging.
 
-{{site.alert.note}}
-  If you want to try running your app on the web,
-  but the **Chrome (web)** target doesn't appear in the
-  list of targets, make sure you've enabled web, as
-  described in [Building a web application][].
-{{site.alert.end}}
-
 ### Run app without breakpoints
 
- 1. Click **Debug > Start Without Debugging** in the
+ 1. Click **Run > Start Without Debugging** in the
     main IDE window, or press `Ctrl`+`F5`.
     The status bar turns orange to show you are in a debug session.<br>
-    ![Debug console]({% asset tools/vs-code/debug_console.png @path %}){:width="490px"}
+    ![Debug console]({% asset tools/vs-code/debug_console.png @path %}){:.mw-100.pt-1}
 
 ### Run app with breakpoints
 
  1. If desired, set breakpoints in your source code.
- 1. Click **Debug > Start Debugging** in the main IDE window,
+ 1. Click **Run > Start Debugging** in the main IDE window,
     or press `F5`.
 
     * The left **Debug Sidebar** shows stack frames and variables.
@@ -146,6 +138,33 @@ running or debugging.
       To customize, click the cog at the top of the
       **Debug Sidebar** to create a `launch.json` file.
       You can then modify the values.
+      
+      
+### Run app in debug, profile, or release mode
+
+Flutter offers many different build modes to run your app in. 
+You can read more about them in [Flutter's build modes][].
+
+ 1. Open the `launch.json` file in VS Code.
+    
+    If you do not have a `launch.json` file, go to 
+    the **Run** view in VS Code and click **create a launch.json file**.
+ 1. In the `configurations` section, change the `flutterMode` property to 
+ the build mode you want to target. 
+     * For example, if you want to run in debug mode, 
+     your `launch.json` might look like this: 
+     ```json
+      "configurations": [
+       {
+         "name": "Flutter",
+         "request": "launch",
+         "type": "dart",
+         "flutterMode": "debug"
+       }
+     ]
+     ```
+ 1. Run the app through the **Run** view. 
+
 
 ## Fast edit and refresh development cycle
 
@@ -214,12 +233,16 @@ can assist in correcting it.
 : Changes a child argument to a children argument,
   and wraps the argument value in a list.
 
+**Convert StatelessWidget to StatefulWidget assist**
+: Changes the implementation of a `StatelessWidget` to that of a `StatefulWidget`,
+  by creating the `State` class and moving the code there.
+
 ### Snippets
 
 Snippets can be used to speed up entering typical code structures.
 They are invoked by typing their prefix,
 and then selecting from the code completion window:
-![Snippets]({% asset tools/vs-code/snippets.png @path %}){:width="700px"}
+![Snippets]({% asset tools/vs-code/snippets.png @path %}){:width="100%"}
 
 The Flutter extension includes the following snippets:
 
@@ -236,9 +259,9 @@ You can also define custom snippets by executing
 ### Keyboard shortcuts
 
 **Hot reload**
-: During a debug session, clicking the **Restart** button on the
-  **Debug Toolbar**, or pressing `Ctrl`+`Shift`+`F5`
-  (`Cmd`+`Shift`+`F5` on macOS) performs a hot reload.
+: During a debug session, clicking the **Hot Reload** button on the
+  **Debug Toolbar**, or pressing `Ctrl`+`F5`
+  (`Cmd`+`F5` on macOS) performs a hot reload.
 
   Keyboard mappings can be changed by executing the
   **Open Keyboard Shortcuts** command from the [Command Palette][].
@@ -258,7 +281,7 @@ A few types of code changes cannot be hot reloaded though:
 For these changes, fully restart your application without
 having to end your debugging session. To perform a hot restart,
 run the **Flutter: Hot Restart** command from the
-[Command Palette][], or press `Ctrl`+`F5`.
+[Command Palette][], or press `Ctrl`+`Shift`+`F5`(`Cmd`+`Shift`+`F5` on macOS).
 
 ## Troubleshooting
 
@@ -278,12 +301,13 @@ Prior to filing new issues:
 
 When filing new issues, include [flutter doctor][] output.
 
-[Building a web application]: /docs/get-started/web
 [Command Palette]: https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette
 [DevTools]: /docs/development/tools/devtools
 [flutter doctor]: /docs/resources/bug-reports/#provide-some-flutter-diagnostics
 [Flutter inspector]: /docs/development/tools/devtools/inspector
+[Flutter's build modes]: /docs/testing/build-modes
 [let us know]: {{site.github}}/flutter/website/issues/new
 [issue tracker]: {{site.github}}/Dart-Code/Dart-Code/issues
 [Running DevTools from VS Code]: /docs/development/tools/devtools/vscode
 [Set up an editor]: /docs/get-started/editor?tab=vscode
+[VS Code status bar]: {% asset tools/vs-code/device_status_bar.png @path %}

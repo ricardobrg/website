@@ -12,6 +12,8 @@ js:
     url: https://dartpad.dev/inject_embed.dart.js
 ---
 
+<?code-excerpt path-base="../null_safety_examples/cookbook/navigation/named_routes"?>
+
 In the [Navigate to a new screen and back][] recipe,
 you learned how to navigate to a new screen by creating a new route and
 pushing it to the [`Navigator`][].
@@ -37,7 +39,10 @@ First, create two screens to work with. The first screen contains a
 button that navigates to the second screen. The second screen contains a
 button that navigates back to the first.
 
+<?code-excerpt "lib/main_original.dart"?>
 ```dart
+import 'package:flutter/material.dart';
+
 class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -46,7 +51,7 @@ class FirstScreen extends StatelessWidget {
         title: Text('First Screen'),
       ),
       body: Center(
-        child: RaisedButton(
+        child: ElevatedButton(
           child: Text('Launch screen'),
           onPressed: () {
             // Navigate to the second screen when tapped.
@@ -65,7 +70,7 @@ class SecondScreen extends StatelessWidget {
         title: Text("Second Screen"),
       ),
       body: Center(
-        child: RaisedButton(
+        child: ElevatedButton(
           onPressed: () {
             // Navigate back to first screen when tapped.
           },
@@ -87,9 +92,13 @@ The `initialRoute` property defines which route the app should start with.
 The `routes` property defines the available named routes and the widgets
 to build when navigating to those routes.
 
-<!-- skip -->
+{% comment %}
+RegEx removes the trailing comma
+{% endcomment %}
+<?code-excerpt "lib/main.dart (MaterialApp)" replace="/,$//g"?>
 ```dart
 MaterialApp(
+  title: 'Named Routes Demo',
   // Start the app with the "/" named route. In this case, the app starts
   // on the FirstScreen widget.
   initialRoute: '/',
@@ -99,7 +108,7 @@ MaterialApp(
     // When navigating to the "/second" route, build the SecondScreen widget.
     '/second': (context) => SecondScreen(),
   },
-);
+)
 ```
 
 {{site.alert.warning}}
@@ -116,7 +125,10 @@ This tells Flutter to build the widget defined in the
 In the `build()` method of the `FirstScreen` widget, update the `onPressed()`
 callback:
 
-<!-- skip -->
+{% comment %}
+RegEx removes the trailing comma
+{% endcomment %}
+<?code-excerpt "lib/main.dart (PushNamed)" replace="/,$//g"?>
 ```dart
 // Within the `FirstScreen` widget
 onPressed: () {
@@ -130,7 +142,10 @@ onPressed: () {
 To navigate back to the first screen, use the
 [`Navigator.pop()`][] function.
 
-<!-- skip -->
+{% comment %}
+RegEx removes the trailing comma
+{% endcomment %}
+<?code-excerpt "lib/main.dart (Pop)" replace="/,$//g"?>
 ```dart
 // Within the SecondScreen widget
 onPressed: () {
@@ -142,22 +157,25 @@ onPressed: () {
 
 ## Interactive example
 
-```run-dartpad:theme-light:mode-flutter:run-true:width-100%:height-600px:split-60:ga_id-interactive_example
+<?code-excerpt "lib/main.dart"?>
+```run-dartpad:theme-light:mode-flutter:run-true:width-100%:height-600px:split-60:ga_id-interactive_example:null_safety-true
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(
-    title: 'Named Routes Demo',
-    // Start the app with the "/" named route. In this case, the app starts
-    // on the FirstScreen widget.
-    initialRoute: '/',
-    routes: {
-      // When navigating to the "/" route, build the FirstScreen widget.
-      '/': (context) => FirstScreen(),
-      // When navigating to the "/second" route, build the SecondScreen widget.
-      '/second': (context) => SecondScreen(),
-    },
-  ));
+  runApp(
+    MaterialApp(
+      title: 'Named Routes Demo',
+      // Start the app with the "/" named route. In this case, the app starts
+      // on the FirstScreen widget.
+      initialRoute: '/',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (context) => FirstScreen(),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/second': (context) => SecondScreen(),
+      },
+    ),
+  );
 }
 
 class FirstScreen extends StatelessWidget {
@@ -168,12 +186,13 @@ class FirstScreen extends StatelessWidget {
         title: Text('First Screen'),
       ),
       body: Center(
-        child: RaisedButton(
-          child: Text('Launch screen'),
+        child: ElevatedButton(
+          // Within the `FirstScreen` widget
           onPressed: () {
             // Navigate to the second screen using a named route.
             Navigator.pushNamed(context, '/second');
           },
+          child: Text('Launch screen'),
         ),
       ),
     );
@@ -188,7 +207,8 @@ class SecondScreen extends StatelessWidget {
         title: Text("Second Screen"),
       ),
       body: Center(
-        child: RaisedButton(
+        child: ElevatedButton(
+          // Within the SecondScreen widget
           onPressed: () {
             // Navigate back to the first screen by popping the current route
             // off the stack.

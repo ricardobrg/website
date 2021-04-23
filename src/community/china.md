@@ -4,14 +4,14 @@ description: Where to find a version of the Flutter site that is localized to Si
 toc: true
 ---
 
-{% assign path = 'flutter_infra/releases/stable/windows/flutter_windows_v1.0.0-stable.zip' -%}
+{% assign path = 'flutter_infra_release/releases/stable/windows/flutter_windows_v1.0.0-stable.zip' -%}
 
 The Flutter community has made a Simplified Chinese version of the
 Flutter website available at
-[https://flutter-io.cn](https://flutter-io.cn).
+[https://flutter.cn](https://flutter.cn).
 
 If you’d like to install Flutter using an [installation
-bundle](/docs/development/tools/sdk/archive),
+bundle](/docs/development/tools/sdk/releases),
 you can replace the domain of the original URL with a trusted mirror
 to speed it up. For example:
 

@@ -60,7 +60,8 @@ the app delegate.
 
 <!--code-excerpt "AppDelegate.m" title-->
 ```objectivec
-#import <FlutterPluginRegistrant/GeneratedPluginRegistrant.h> // Used to connect plugins.
+// Used to connect plugins (only if you have plugins with iOS platform code).
+#import <FlutterPluginRegistrant/GeneratedPluginRegistrant.h>
 
 #import "AppDelegate.h"
 
@@ -71,6 +72,7 @@ the app delegate.
   self.flutterEngine = [[FlutterEngine alloc] initWithName:@"my flutter engine"];
   // Runs the default Dart entrypoint with a default Flutter route.
   [self.flutterEngine run];
+  // Used to connect plugins (only if you have plugins with iOS platform code).
   [GeneratedPluginRegistrant registerWithRegistry:self.flutterEngine];
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
@@ -84,7 +86,8 @@ the app delegate.
 ```swift
 import UIKit
 import Flutter
-import FlutterPluginRegistrant // Used to connect plugins.
+// Used to connect plugins (only if you have plugins with iOS platform code).
+import FlutterPluginRegistrant
 
 @UIApplicationMain
 class AppDelegate: FlutterAppDelegate { // More on the FlutterAppDelegate.
@@ -93,6 +96,7 @@ class AppDelegate: FlutterAppDelegate { // More on the FlutterAppDelegate.
   override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Runs the default Dart entrypoint with a default Flutter route.
     flutterEngine.run();
+    // Used to connect plugins (only if you have plugins with iOS platform code).
     GeneratedPluginRegistrant.register(with: self.flutterEngine);
     return super.application(application, didFinishLaunchingWithOptions: launchOptions);
   }
@@ -387,7 +391,7 @@ a different Dart function.
   must be annotated with the following in order to
   not be [tree-shaken][] away when compiling:
 
-  <!--code-excerpt "main.dart" title-->
+  <!-- skip -->
   ```dart
   @pragma('vm:entry-point')
   void myOtherEntrypoint() { ... };
@@ -418,45 +422,52 @@ flutterEngine.run(withEntrypoint: "myOtherEntrypoint", libraryURI: "other_file.d
 
 ### Route
 
-An initial route can be set for your Flutter [`WidgetsApp`][]
-when constructing the engine.
+Starting in Flutter version 1.22, an initial route can be set for your Flutter
+[`WidgetsApp`][] when constructing the FlutterEngine or the
+FlutterViewController.
 
 {% samplecode initial-route %}
 {% sample Objective-C %}
 <!--code-excerpt "Creating engine" title-->
 ```objectivec
-FlutterEngine *flutterEngine =
-    [[FlutterEngine alloc] initWithName:@"my flutter engine"];
-[[flutterEngine navigationChannel] invokeMethod:@"setInitialRoute"
-                                      arguments:@"/onboarding"];
-[flutterEngine run];
+FlutterEngine *flutterEngine = [[FlutterEngine alloc] init];
+// FlutterDefaultDartEntrypoint is the same as nil, which will run main().
+[flutterEngine runWithEntrypoint:FlutterDefaultDartEntrypoint
+                    initialRoute:@"/onboarding"];
 ```
 {% sample Swift %}
 <!--code-excerpt "Creating engine" title-->
 ```swift
-let flutterEngine = FlutterEngine(name: "my flutter engine")
-flutterEngine.navigationChannel.invokeMethod("setInitialRoute", arguments:"/onboarding")
-flutterEngine.run()
+let flutterEngine = FlutterEngine()
+// FlutterDefaultDartEntrypoint is the same as nil, which will run main().
+engine.run(
+  withEntrypoint: FlutterDefaultDartEntrypoint, initialRoute: "/onboarding")
 ```
 {% endsamplecode %}
 
 This code sets your `dart:ui`'s [`window.defaultRouteName`][]
 to `"/onboarding"` instead of `"/"`.
 
-{{site.alert.warning}}
-  `"setInitialRoute"` on the `navigationChannel` must be called
-  before running your `FlutterEngine` in order for Flutter's
-  first frame to use the desired route.
+Alternatively, to construct a FlutterViewController directly without pre-warming
+a FlutterEngine:
 
-  Specifically, this must be called before running the Dart entrypoint.
-  The entrypoint may lead to a series of events where
-  [`runApp`][] builds a Material/Cupertino/WidgetsApp
-  that implicitly creates a [Navigator][] that might
-  `window.defaultRouteName` when the [`NavigatorState`][] is
-  first initialized.
-
-  Setting the initial route after running the engine doesn't have an effect.
-{{site.alert.end}}
+{% samplecode initial-route %}
+{% sample Objective-C %}
+<!--code-excerpt "Creating view controller" title-->
+```objectivec
+FlutterViewController* flutterViewController =
+      [[FlutterViewController alloc] initWithProject:nil
+                                        initialRoute:@"/onboarding"
+                                             nibName:nil
+                                              bundle:nil];
+```
+{% sample Swift %}
+<!--code-excerpt "Creating view controller" title-->
+```swift
+let flutterViewController = FlutterViewController(
+      project: nil, initialRoute: "/onboarding", nibName: nil, bundle: nil)
+```
+{% endsamplecode %}
 
 {{site.alert.tip}}
   In order to imperatively change your current Flutter

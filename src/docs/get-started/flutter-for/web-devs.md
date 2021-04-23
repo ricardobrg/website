@@ -8,6 +8,11 @@ This page is for users who are familiar with the HTML and CSS syntax for
 arranging components of an application's UI. It maps HTML/CSS code snippets to
 their Flutter/Dart code equivalents.
 
+One of the fundamental differences between designing a web
+layout and a Flutter layout, is learning how constraints work,
+and how widgets are sized and positioned. To learn more,
+see [Understanding constraints][].
+
 The examples assume:
 
 * The HTML document starts with `<!DOCTYPE html>`, and the CSS box model
@@ -45,6 +50,8 @@ Font style, size, and other text attributes that CSS
 handles with the font and color properties are individual
 properties of a [`TextStyle`][] child of a [`Text`][] widget.
 
+For text-align property in CSS that is used for aligning text, there is a textAlign property of a [`Text`][] widget.
+
 In both HTML and Flutter, child elements or widgets are anchored at
 the top left, by default.
 
@@ -59,6 +66,7 @@ the top left, by default.
       width: 320px;
       height: 240px;
       [[highlight]]font: 900 24px Georgia;[[/highlight]]
+      [[highlight]]text-align: center;[[/highlight]]
     }
 {% endprettify %}
 </div>
@@ -67,6 +75,7 @@ the top left, by default.
   var container = Container( // grey box
     child: Text(
       "Lorem ipsum",
+      [[highlight]]textAlign: TextAlign.center,[[/highlight]]
       style: [[highlight]]TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.w900,
@@ -82,8 +91,11 @@ the top left, by default.
 
 ### Setting background color
 
-In Flutter, you set the background color using a
-[`Container`][]’s `decoration` property.
+In Flutter, you set the background color using the 
+`color` property or the `decoration` property of a [`Container`][]. However, you cannot
+supply both, since it would potentially result in the decoration drawing over
+the background color. The `color` property should be preferred when the background is a simple color.
+For other cases, such as gradients or images, use the `decoration` property.
 
 The CSS examples use the hex color equivalents to the Material color palette.
 
@@ -99,6 +111,20 @@ The CSS examples use the hex color equivalents to the Material color palette.
       height: 240px;
       font: 900 24px Roboto;
     }
+{% endprettify %}
+</div>
+
+<div class="righthighlight">
+{% prettify dart %}
+  var container = Container( // grey box
+    child: Text(
+      "Lorem ipsum",
+      style: bold24Roboto,
+    ),
+    width: 320,
+    height: 240,
+    [[highlight]]color: Colors.grey[300],[[/highlight]]
+  );
 {% endprettify %}
 </div>
 
@@ -297,8 +323,8 @@ Use the `Transform` widget’s `alignment` and `origin` properties to
 specify the transform origin (fulcrum) in relative and absolute terms,
 respectively.
 
-For a simple 2D rotation, the widget is rotated on the Z axis using radians.
-(degrees × π / 180)
+For a simple 2D rotation, in which the widget is rotated on the Z axis, create a new [`Matrix4`][] identity object and use
+its `rotateZ()` method to specify the rotation factor using radians (degrees × π / 180).
 
 <div class="lefthighlight">
 {% prettify css %}
@@ -555,7 +581,7 @@ The following examples show how to make and customize shapes.
 To round the corners of a rectangular shape,
 use the `borderRadius` property of a [`BoxDecoration`][] object.
 Create a new [`BorderRadius`][]
-object that specifies the radii for rounding each corner.
+object that specifies the radius for rounding each corner.
 
 <div class="lefthighlight">
 {% prettify css %}
@@ -821,7 +847,7 @@ var container = Container( // grey box
 
 ### Making inline formatting changes
 
-A [`Text`][] widget lets you display text with the same
+A [`Text`][] widget lets you display text with some
 formatting characteristics. To display text that uses
 multiple styles (in this example,
 a single word with emphasis), use a [`RichText`][]
@@ -838,7 +864,7 @@ styling.
 {% prettify css %}
 <div class="greybox">
   <div class="redbox">
-    [[highlight]]Lorem <em>ipsum</em> [[/highlight]]
+    [[highlight]]Lorem <em>ipsum</em>[[/highlight]]
   </div>
 </div>
 
@@ -846,7 +872,7 @@ styling.
   background-color: #e0e0e0; /* grey 300 */
   width: 320px;
   height: 240px;
-  [[highlight]]font: 900 24px Roboto; [[/highlight]]
+  [[highlight]]font: 900 24px Roboto;[[/highlight]]
   display: flex;
   align-items: center;
   justify-content: center;
@@ -978,3 +1004,5 @@ var container = Container( // grey box
 [`TextSpan`]: {{site.api}}/flutter/painting/TextSpan-class.html
 [`TextStyle`]: {{site.api}}/flutter/painting/TextStyle-class.html
 [`Transform`]: {{site.api}}/flutter/widgets/Transform-class.html
+[Understanding constraints]: /docs/development/ui/layout/constraints
+

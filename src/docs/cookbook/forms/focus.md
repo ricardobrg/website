@@ -25,9 +25,10 @@ you can set the focus to the text field for the search term.
 This allows the user to start typing as soon as the screen
 is visible, without needing to manually tap the text field.
 
-In this recipe, learn how to give the focus to a text field as soon
-as it's visible,
-as well as how to give focus to a text field when a button is tapped.
+In this recipe, learn how to give the focus
+to a text field as soon as it's visible,
+as well as how to give focus to a text field
+when a button is tapped.
 
 ## Focus a text field as soon as it's visible
 
@@ -136,7 +137,7 @@ this task.
 FloatingActionButton(
   // When the button is pressed, give focus to the text field using
   // myFocusNode.
-  onPressed: () => FocusScope.of(context).requestFocus(myFocusNode),
+  onPressed: () => myFocusNode.requestFocus(),
 );
 ```
 
@@ -210,7 +211,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
       floatingActionButton: FloatingActionButton(
         // When the button is pressed,
         // give focus to the text field using myFocusNode.
-        onPressed: () => FocusScope.of(context).requestFocus(myFocusNode),
+        onPressed: () => myFocusNode.requestFocus(),
         tooltip: 'Focus Second Text Field',
         child: Icon(Icons.edit),
       ), // This trailing comma makes auto-formatting nicer for build methods.
@@ -223,6 +224,11 @@ class _MyCustomFormState extends State<MyCustomForm> {
   <img src="/images/cookbook/focus.gif" alt="Text Field Focus Demo" class="site-mobile-screenshot" />
 </noscript>
 
+
+[fix has landed]: {{site.github}}/flutter/flutter/pull/50372
 [`FocusNode`]: {{site.api}}/flutter/widgets/FocusNode-class.html
 [Forms]: /docs/cookbook#forms
+[flutter/flutter@bf551a3]: {{site.github}}/flutter/flutter/commit/bf551a31fe7ef45c854a219686b6837400bfd94c
+[Issue 52221]: {{site.github}}/flutter/flutter/issues/52221
 [`requestFocus()`]: {{site.api}}/flutter/widgets/FocusNode/requestFocus.html
+[workaround]: {{site.github}}/flutter/flutter/issues/52221#issuecomment-598244655

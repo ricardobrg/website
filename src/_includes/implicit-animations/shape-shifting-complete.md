@@ -1,4 +1,4 @@
-```run-dartpad:theme-light:mode-flutter:split-60:width-100%:height-500px:ga_id-shape_shifting_complete
+```run-dartpad:theme-light:mode-flutter:split-60:width-100%:height-500px:ga_id-shape_shifting_complete:null_safety-true
 {$ begin main.dart $}
 import 'dart:math';
 
@@ -23,9 +23,9 @@ class AnimatedContainerDemo extends StatefulWidget {
 }
 
 class _AnimatedContainerDemoState extends State<AnimatedContainerDemo> {
-  Color color;
-  double borderRadius;
-  double margin;
+  late Color color;
+  late double borderRadius;
+  late double margin;
 
   @override
   void initState() {
@@ -61,12 +61,8 @@ class _AnimatedContainerDemoState extends State<AnimatedContainerDemo> {
                 duration: _duration,
               ),
             ),
-            MaterialButton(
-              color: Theme.of(context).primaryColor,
-              child: Text(
-                'change',
-                style: TextStyle(color: Colors.white),
-              ),
+            ElevatedButton(
+              child: Text('change'),
               onPressed: () => change(),
             ),
           ],
@@ -86,7 +82,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Future<void> main() async {
+void main() {
   runApp(
     MyApp(),
   );

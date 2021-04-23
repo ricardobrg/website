@@ -22,20 +22,9 @@ In this walkthrough, you'll create a C function
 that implements 32-bit addition and then
 exposes it through a Dart plugin named "native_add".
 
-{{ site.alert.note }}
-  The dart:ffi library is [in beta][ffi issue],
-  and breaking API changes might still happen.
-
-  Using the feature requires a Flutter 1.10.x
-  dev channel build. To switch to the dev channel and
-  upload the latest dev version, do the following:
-
-  ```terminal
-  $ flutter channel dev
-  $ flutter upgrade
-  ```
-  For more information on Flutter's channels,
-  see [Upgrading Flutter][].
+{{ site.alert.version-note }}
+  As of Dart 2.12.0 (included in Flutter 2.0 or later),
+  FFI has been marked as stable.
 {{ site.alert.end }}
 
 ### Dynamic vs static linking
@@ -70,9 +59,15 @@ To create a plugin called "native_add",
 do the following:
 
 ```terminal
-$ flutter create --template=plugin native_add
+$ flutter create --platforms=android,ios --template=plugin native_add
 $ cd native_add
 ```
+
+{{ site.alert.note }}
+  You can exclude platforms from --platforms that you don't want
+  to build to. However, you need to include the platform of 
+  the device you are testing on.
+{{ site.alert.end }}
 
 ## Step 2: Add C/C++ sources
 
@@ -113,7 +108,7 @@ int32_t native_add(int32_t x, int32_t y) {
 EOF
 ```
 
-On iOS, you need to tell xcode to statically link the file:
+On iOS, you need to tell Xcode to statically link the file:
 
  1. In Xcode, open `Runner.xcworkspace`.
  2. Add the C/C++/Objective-C/Swift
@@ -165,11 +160,10 @@ First, you must create a `DynamicLibrary` handle to
 the native code. This step varies between iOS and Android:
 
 ```dart
-import 'dart:ffi';  // For FFI
-import 'dart:io';   // For Platform.isX
+import 'dart:ffi'; // For FFI
+import 'dart:io'; // For Platform.isX
 
-final DynamicLibrary nativeAddLib =
-  Platform.isAndroid
+final DynamicLibrary nativeAddLib = Platform.isAndroid
     ? DynamicLibrary.open("libnative_add.so")
     : DynamicLibrary.process();
 ```
@@ -269,6 +263,27 @@ use the following instructions:
 1. Also add it to the **Linked Frameworks & Libraries**
    section of the target in Xcode.
 
+#### Compiled (dynamic) library (macOS)
+
+To create add a closed source library to a [Flutter macOS Desktop][] app,
+use the following instructions.
+
+1. Follow the instructions for Flutter desktop to create a Flutter desktop app.
+1. Open the `yourapp/macos/Runner.xcworkspace` in Xcode.
+   1. Drag your precompiled library (`libyourlibrary.dylib`) into `Runner/Frameworks`.
+   1. Click `Runner` and go to the `Build Phases` tab.
+      1. Drag `libyourlibrary.dylib` into the `Copy Bundle Resources` list.
+      1. Under `Bundle Framework`, check `Code Sign on Copy`.
+      1. Under `Link Binary With Libraries`, set status to `Optional`. (We use dynamic linking, no need to statically link.)
+   1. Click `Runner` and go to the `General` tab.
+      1. Drag `libyourlibrary.dylib` into the `Frameworks, Libararies and Embedded Content` list.
+      1. Select `Embed & Sign`.
+1. Edit `lib/main.dart`.
+   1. Use `DynamicLibrary.open('libyourlibrary.dylib')` to dynamically link to the symbols.
+   1. Call your native function somewhere in a widget.
+1. Run `flutter run` and check that your native function gets called.
+1. Run `flutter build macos` to build a selfcontained release version of your app.
+
 #### Open-source third-party library
 
 To create a Flutter plugin that includes both
@@ -297,7 +312,7 @@ in binary form, use the following instructions:
 
 **Do not** upload this plugin
 (or any plugin containing binary code)
-to Pub. Instead, this plugin should be downloaded
+to pub.dev. Instead, this plugin should be downloaded
 from a trusted third-party,
 as shown in the CocoaPods example.
 
@@ -348,10 +363,58 @@ in binary form, use the following instructions:
    downloaded from a repository, such as
    JCenter.
 
+
 ### Web
 
-Plugins are not yet supported for web apps.
+This feature is not yet supported for web plugins.
 
+## FAQ
+
+### Android APK size (shared object compression)
+
+[Android guidelines][] in general recommend distributing native shared objects
+uncompressed because that actually saves on device space. Shared objects can be
+directly loaded from the APK instead of unpacking them on device into a
+temporary location and then loading. APKs are additionally packed in transit -
+that is why you should be looking at download size.
+
+Flutter APKs by default don't follow these guidelines and compress
+`libflutter.so` and `libapp.so` - this leads to smaller APK size but larger on
+device size.
+
+Shared objects from third parties can change this default setting with
+`android:extractNativeLibs="true"` in their `AndroidManifest.xml` and stop the
+compression of `libflutter.so`, `libapp.so`, and any user-added shared objects.
+To re-enable compression, override the setting in
+`your_app_name/android/app/src/main/AndroidManifest.xml` in the following way.
+
+```diff
+@@ -1,5 +1,6 @@
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-    package="com.example.your_app_name">
++    xmlns:tools="http://schemas.android.com/tools"
++    package="com.example.your_app_name" >
+     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
+          calls FlutterMain.startInitialization(this); in its onCreate method.
+          In most cases you can leave this as-is, but you if you want to provide
+          additional functionality it is fine to subclass or reimplement
+          FlutterApplication and put your custom class here. -->
+@@ -8,7 +9,9 @@
+     <application
+         android:name="io.flutter.app.FlutterApplication"
+         android:label="your_app_name"
+-        android:icon="@mipmap/ic_launcher">
++        android:icon="@mipmap/ic_launcher"
++        android:extractNativeLibs="true"
++        tools:replace="android:extractNativeLibs">
+```
+
+### iOS symbols stripped
+
+When creating a release archive (IPA) the symbols are stripped by Xcode.
+
+1. In Xcode, go to **Target Runner > Build Settings > Strip Style**.
+2. Change from **All Symbols** to **Non-Global Symbols**.
 
 [Add C and C++ code to your project]: {{site.android-dev}}/studio/projects/add-native-code
 [Android NDK Native APIs]: {{site.android-dev}}/ndk/guides/stable_apis
@@ -364,4 +427,6 @@ Plugins are not yet supported for web apps.
 [FFI]: https://en.wikipedia.org/wiki/Foreign_function_interface
 [ffi issue]: {{site.github}}/dart-lang/sdk/issues/34452
 [Upgrading Flutter]: /docs/development/tools/sdk/upgrading
+[Flutter macOS Desktop]: /desktop
+[Android guidelines]: {{site.android-dev}}/topic/performance/reduce-apk-size#extract-false
 

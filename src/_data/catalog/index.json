@@ -7,7 +7,7 @@
   },
   {
     "name": "Material Components",
-    "description": "Visual, behavioral, and motion-rich widgets implementing the <a href=\"https://material.io/guidelines/material-design/introduction.html\">Material Design guidelines</a>.",
+    "description": "Visual, behavioral, and motion-rich widgets implementing the <a href=\"https://material.io/design/guidelines-overview\">Material Design guidelines</a>.",
     "subcategories": [
       {
         "name": "App structure and navigation"
@@ -46,6 +46,10 @@
       {
         "name": "Multi-child layout widgets",
         "description": "These widgets take multiple children and arrange them in different ways."
+      }, 
+      {
+        "name": "Sliver widgets", 
+        "description": "These widgets take a portion of a CustomScrollView and apply a layout to that portion."
       }
     ],
     "id": "layout"

@@ -7,25 +7,25 @@ short-title: iOS
 This guide provides a step-by-step walkthrough of releasing a
 Flutter app to the [App Store][appstore] and [TestFlight][].
 
-For information on obfuscating Dart code,
-see [Obfuscating Dart Code][].
-
 ## Preliminaries
 
-Before beginning the process of releasing your app, ensure that it meets
+Before beginning the process of releasing your app,
+ensure that it meets
 Apple's [App Review Guidelines][appreview].
 
-In order to publish your app to the App Store, you'll need to enroll in the
-[Apple Developer Program][devprogram]. You can read more about the various
+In order to publish your app to the App Store,
+you must first enroll in the
+[Apple Developer Program][devprogram].
+You can read more about the various
 membership options in Apple's
 [Choosing a Membership][devprogram_membership] guide.
 
 ## Register your app on App Store Connect
 
-[App Store Connect][appstoreconnect] (formerly iTunes Connect)
-is where you'll manage your app's life cycle. You will define
-your app name and description, add screenshots, set pricing,
-and manage releases to the App Store and TestFlight.
+Manage your app's life cycle on
+[App Store Connect][appstoreconnect] (formerly iTunes Connect).
+You define your app name and description, add screenshots,
+set pricing, and manage releases to the App Store and TestFlight.
 
 Registering your app involves two steps: registering a unique
 Bundle ID, and creating an application record on App Store Connect.
@@ -42,24 +42,24 @@ To register a Bundle ID for your app, follow these steps:
 1. Open the [App IDs][devportal_appids] page of your developer account.
 1. Click **+** to create a new Bundle ID.
 1. Enter an app name, select **Explicit App ID**, and enter an ID.
-1. Select the services your app will use, then click **Continue**.
+1. Select the services your app uses, then click **Continue**.
 1. On the next page, confirm the details and click **Register**
    to register your Bundle ID.
 
 ### Create an application record on App Store Connect
 
-Next, you'll register your app on App Store Connect:
+Register your app on App Store Connect:
 
 1. Open [App Store Connect][appstoreconnect_login] in your browser.
 1. On the App Store Connect landing page, click **My Apps**.
-1. Click **+** in the top-left corner of the My Apps page, then select
-   **New App**.
+1. Click **+** in the top-left corner of the My Apps page,
+   then select **New App**.
 1. Fill in your app details in the form that appears.
    In the Platforms section, ensure that iOS is checked.
    Since Flutter does not currently support tvOS,
    leave that checkbox unchecked. Click **Create**.
-1. Navigate to the application details for your app and select **App
-   Information** from the sidebar.
+1. Navigate to the application details for your app and select
+   **App Information** from the sidebar.
 1. In the General Information section, select the Bundle ID
    you registered in the preceding step.
 
@@ -68,9 +68,10 @@ see [Add an app to your account][appstoreconnect_guide_register].
 
 ## Review Xcode project settings
 
-In this step, you'll review the most important settings in the
-Xcode workspace.  For detailed procedures and descriptions,
-see [Prepare for app distribution][distributionguide_config].
+This step covers reviewing the most important settings
+in the Xcode workspace.
+For detailed procedures and descriptions, see
+[Prepare for app distribution][distributionguide_config].
 
 Navigate to your target's settings in Xcode:
 
@@ -80,18 +81,17 @@ Navigate to your target's settings in Xcode:
    target.
 1. Select the **General** tab.
 
-Next, you'll verify the most important settings.
+Verify the most important settings.
 
 In the **Identity** section:
 
 `Display Name`
-: The name of the app to be displayed on the home screen and
-  elsewhere.
-  
+: The display name of your app.
+
 `Bundle Identifier`
 : The App ID you registered on App Store Connect.
 
-In the **Signing** section:
+In the **Signing & Capabilities** section:
 
 `Automatically manage signing`
 : Whether Xcode should automatically manage app signing
@@ -104,10 +104,10 @@ In the **Signing** section:
   account. If required, select **Add Account...**,
   then update this setting.
 
-In the **Deployment Info** section:
+In the **Build Settings** section:
 
-`Deployment Target:`
-: The minimum iOS version that your app will support.
+`iOS Deployment Target`
+: The minimum iOS version that your app supports.
   Flutter supports iOS 8.0 and later. If your app includes
   Objective-C or Swift code that makes use of APIs that
   were unavailable in iOS 8, update this setting appropriately.
@@ -119,6 +119,11 @@ the following:
 
 For a detailed overview of app signing, see
 [Create, export, and delete signing certificates][appsigning].
+
+## Updating the app's deployment version
+If you changed `Deployment Target` in your Xcode project,
+open `ios/Flutter/AppframeworkInfo.plist` in your Flutter app
+and update the `MinimumOSVersion` value to match.
 
 ## Updating the app's version number
 
@@ -144,7 +149,7 @@ on the Apple Developer's site.
 ## Add an app icon
 
 When a new Flutter app is created, a placeholder icon set is created.
-In this step, you'll replace these placeholder icons with your
+This step covers replacing these placeholder icons with your
 app's icons:
 
 1. Review the [iOS App Icon][appicon] guidelines.
@@ -155,26 +160,19 @@ app's icons:
 
 ## Create a build archive
 
-In this step, you'll create a build archive and upload your
-build to App Store Connect.
+This step covers creating a build archive and uploading
+your build to App Store Connect.
 
 During development, you've been building, debugging, and testing
-with *debug* builds. When you're ready to ship your app to users
-on the App Store or TestFlight, you'll need to prepare a *release* build.
-
-On the command line, follow these steps in your application directory:
-
-1. Run `flutter build ios` to create a release build
-   (`flutter build` defaults to `--release`).
-1. To ensure that Xcode refreshes the release mode configuration,
-   close and re-open your Xcode workspace.
-   For Xcode 8.3 and later, this step is not required.
+with _debug_ builds. When you're ready to ship your app to users
+on the App Store or TestFlight, you need to prepare a _release_ build.
+At this point, you might consider [obfuscating your Dart code][]
+to make it more difficult to reverse engineer. Obfuscating
+your code involves adding a couple flags to your build command.
 
 In Xcode, configure the app version and build:
 
 1. In Xcode, open `Runner.xcworkspace` in your app's `ios` folder.
-1. Select **Product > Scheme > Runner**.
-1. Select **Product > Destination > Generic iOS Device**.
 1. Select **Runner** in the Xcode project navigator, then select the
    **Runner** target in the settings view sidebar.
 1. In the Identity section, update the **Version** to the user-facing
@@ -185,16 +183,50 @@ In Xcode, configure the app version and build:
 
 Finally, create a build archive and upload it to App Store Connect:
 
-1. Select **Product > Archive** to produce a build archive.
-1. In the sidebar of the Xcode Organizer window, select your iOS app,
-   then select the build archive you just produced.
-1. Click the **Validate App** button. If any issues are reported,
-   address them and produce another build. You can reuse the same
-   build ID until you upload an archive.
-1. After the archive has been successfully validated, click
-   **Distribute App**. You can follow the status of your build in the
-   Activities tab of your app's details page on
-   [App Store Connect][appstoreconnect_login].
+<ol markdown="1">
+<li markdown="1">
+
+Run `flutter build ipa` to produce a build archive.
+
+{{site.alert.note}}
+  On versions of Flutter where `flutter build ipa`
+  is unavailable, open Xcode and select **Product > Archive**.
+  In the sidebar of the Xcode Organizer window, select your iOS app,
+  then select the build archive you just produced.
+{{site.alert.end}}
+
+</li>
+<li markdown="1">
+
+Open `build/ios/archive/MyApp.xcarchive` in Xcode.
+
+</li>
+<li markdown="1">
+
+Click the **Validate App** button. If any issues are reported,
+address them and produce another build. You can reuse the same
+build ID until you upload an archive.
+
+</li>
+<li markdown="1">
+
+After the archive has been successfully validated, click
+**Distribute App**. You can follow the status of your build in the
+Activities tab of your app's details page on
+[App Store Connect][appstoreconnect_login].
+
+{{site.alert.note}}
+  When you export your app at the end of **Distribute App**,
+  Xcode will create a directory containing
+  an IPA of your app and an `ExportOptions.plist` file.
+  You can create new IPAs with the same options without launching
+  Xcode by running
+  `flutter build ipa --export-options-plist=path/to/ExportOptions.plist`.
+  See `xcodebuild -h` for details about the keys in this property list.
+{{site.alert.end}}
+
+</li>
+</ol>
 
 You should receive an email within 30 minutes notifying you that
 your build has been validated and is available to release to testers
@@ -207,8 +239,8 @@ For more details, see
 ## Release your app on TestFlight
 
 [TestFlight][] allows developers to push their apps
-to internal and external testers. In this optional step,
-you'll release your build on TestFlight.
+to internal and external testers. This optional step
+covers releasing your build on TestFlight.
 
 1. Navigate to the TestFlight tab of your app's application
    details page on [App Store Connect][appstoreconnect_login].
@@ -224,20 +256,21 @@ For more details, see [Distribute an app using TestFlight]
 
 ## Release your app to the App Store
 
-When you're ready to release your app to the world, follow these steps to
-submit your app for review and release to the App Store:
+When you're ready to release your app to the world,
+follow these steps to submit your app for review and
+release to the App Store:
 
 1. Select **Pricing and Availability** from the sidebar of your app's
    application details page on
    [App Store Connect][appstoreconnect_login] and complete the
    required information.
 1. Select the status from the sidebar. If this is the first
-   release of this app, its status will be
+   release of this app, its status is
    **1.0 Prepare for Submission**. Complete all required fields.
 1. Click **Submit for Review**.
 
-Apple will notify you when their app review process is complete.
-Your app will be released according to the instructions you
+Apple notifies you when their app review process is complete.
+Your app is released according to the instructions you
 specified in the **Version Release** section.
 
 For more details, see
@@ -247,6 +280,7 @@ For more details, see
 
 The [Distribute your app][distributionguide] guide provides a
 detailed overview of the process of releasing an app to the App Store.
+
 
 [appicon]: https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/
 [appreview]: https://developer.apple.com/app-store/review/
@@ -266,6 +300,5 @@ detailed overview of the process of releasing an app to the App Store.
 [distributionguide_submit]: https://help.apple.com/xcode/mac/current/#/dev067853c94
 [distributionguide_testflight]: https://help.apple.com/xcode/mac/current/#/dev2539d985f
 [distributionguide_upload]: https://help.apple.com/xcode/mac/current/#/dev442d7f2ca
-[Get $75 app advertising credit when you spend $25.]: https://ads.google.com/lp/appcampaigns/?modal_active=none&subid=ww-ww-et-aw-a-flutter1!o2#?modal_active=none
-[Obfuscating Dart Code]: {{site.github}}/flutter/flutter/wiki/Obfuscating-Dart-Code
+[obfuscating your Dart code]: /docs/deployment/obfuscate
 [TestFlight]: https://developer.apple.com/testflight/

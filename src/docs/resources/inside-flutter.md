@@ -1,5 +1,6 @@
 ---
 title: Inside Flutter
+description: Learn about Flutter's inner workings from one of the founding engineers.
 ---
 
 This document describes the inner workings of the Flutter toolkit that make
@@ -161,8 +162,8 @@ following cases:
 * The two lists are identical.
 * There is an insertion or removal of one or more widgets in exactly
   one place in the list.
-* If each list contains a widget with the same key<sup><a href="#a1">5</a></sup>, the two widgets are
-  matched.
+* If each list contains a widget with the same
+  key<sup><a href="#a5">5</a></sup>, the two widgets are matched.
 
 The general approach is to match up the beginning and end of both child
 lists by comparing the runtime type and key of each widget,
@@ -215,7 +216,7 @@ the major algorithms discussed above.
 * **Child-model agnostic.** Unlike most toolkits, which use child lists,
   Flutter’s render tree does not commit to a specific child model.
   For example, the `RenderBox` class has an abstract `visitChildren()`
-  method rather than a concrete _firstChild_ and _nextSibling_ interface.
+  method rather than a concrete `firstChild` and `nextSibling` interface.
   Many subclasses support only a single child, held directly as a member
   variable, rather than a list of children. For example, `RenderPadding`
   supports only a single child and, as a result, has a simpler layout
@@ -245,11 +246,11 @@ the major algorithms discussed above.
 * **Observable objects.** Flutter uses both the model-observation and
   the reactive paradigms. Obviously, the reactive paradigm is dominant,
   but Flutter uses observable model objects for some leaf data structures.
-  For example, _Animations_ notify an observer list when their value changes.
+  For example, `Animation`s notify an observer list when their value changes.
   Flutter hands off these observable objects from the widget tree to the
   render tree, which observes them directly and invalidates only the
   appropriate stage of the pipeline when they change. For example,
-  a change to an _Animation<Color>_ might trigger only the paint phase
+  a change to an `Animation<Color>` might trigger only the paint phase
   rather than both the build and paint phases.
 
 Taken together and summed over the large trees created by aggressive
@@ -257,8 +258,8 @@ composition, these optimizations have a substantial effect on performance.
 
 ### Separation of the Element and RenderObject trees
 
-The RenderObject and Element (Widget) trees in Flutter are isomorphic
-(strictly speaking, the RenderObject tree is a subset of the Element
+The `RenderObject` and `Element` (Widget) trees in Flutter are isomorphic
+(strictly speaking, the `RenderObject` tree is a subset of the `Element`
 tree). An obvious simplification would be to combine these trees into
 one tree. However, in practice there are a number of benefits to having
 these trees be separate:
@@ -323,7 +324,7 @@ For example, a single viewport can have a collapsible header followed
 by a linear list and then a grid. All three slivers will cooperate through
 the sliver layout protocol to produce only those children that are actually
 visible through the viewport, regardless of whether those children belong
-to the header, the list, or the grid.
+to the header, the list, or the grid<sup><a href="#a6">6</a></sup>.
 
 ### Building widgets on demand
 
@@ -522,7 +523,8 @@ that direct interaction with the rendering layer is awkward at best
 and bug-prone at worst.
 
 Flutter's widget layer introduces a composition mechanism using the
-reactive paradigm to manipulate the underlying rendering tree.
+reactive paradigm<sup><a href="#a7">7</a></sup> to manipulate the
+underlying rendering tree.
 This API abstracts out the tree manipulation by combining the tree
 creation and tree mutation steps into a single tree description (build)
 step, where, after each change to the system state, the new configuration
@@ -553,8 +555,9 @@ is represented as an immutable object that is configured with
 appropriate settings (color, stroke width, etc) and knows how to paint
 itself. When it is time to draw the intermediate steps during the animation,
 the start and end values are passed to the appropriate `lerp` function
-along with a _t_<a href="#a2">8</a> value representing the point along the animation,
-where 0.0 represents the `start` and 1.0 represents the `end`,
+along with a _t_ value representing the point along the animation,
+where 0.0 represents the `start` and 1.0 represents the
+`end`<sup><a href="#a8">8</a></sup>,
 and the function returns a third immutable object representing the
 intermediate stage.
 

@@ -9,6 +9,12 @@ short-title: Box constraints
   framework detects a problem involving box constraints.
 {{site.alert.end}}
 
+{{site.alert.note}}
+  If you are confused by how constraints, sizing,
+  and positioning work in Flutter, see
+  [Understanding constraints][].
+{{site.alert.end}}
+
 In Flutter, widgets are rendered by their underlying
 [`RenderBox`][] objects. Render boxes are given
 constraints by their parent, and size themselves within those
@@ -61,7 +67,7 @@ minimum is removed. For example, [`Center`][].
 
 In certain situations, the constraint that is given to a box is
 _unbounded_, or infinite. This means that either the maximum width or
-the maximum height is set to `double.INFINITY`.
+the maximum height is set to [`double.infinity`][].
 
 A box that tries to be as big as possible won't function usefully when
 given an unbounded constraint and, in debug mode, such a combination
@@ -79,7 +85,7 @@ in its cross-direction (for example,
 if it's a vertically-scrolling block,
 it tries to be as wide as its parent).
 If you nest a vertically scrolling [`ListView`][]
-inside a horizontally scrolling [`ListView`][],
+inside a horizontally scrolling `ListView`,
 the inner one tries to be as wide as possible,
 which is infinitely wide,
 since the outer one is scrollable in that direction.
@@ -97,7 +103,7 @@ they try to be as big as possible in that direction.
 In unbounded constraints,
 they try to fit their children in that direction.
 In this case, you cannot set `flex` on the children to
-anything other than 0 (the default).
+anything other than 0.
 In the widget library, this means that you cannot use
 [`Expanded`][] when the flex box is inside
 another flex box or inside a scrollable. If you do,
@@ -108,6 +114,8 @@ In the _cross_ direction, for example, in the width for
 [`Row`][] (horizontal flex), they must never be unbounded,
 otherwise they would not be able to reasonably align their children.
 
+
+[`build`]: {{site.api}}/flutter/widgets/State/build.html
 [`Center`]: {{site.api}}/flutter/widgets/Center-class.html
 [`Column`]: {{site.api}}/flutter/widgets/Column-class.html
 [`Container`]: {{site.api}}/flutter/widgets/Container-class.html
@@ -121,5 +129,5 @@ otherwise they would not be able to reasonably align their children.
 [`ScrollView`]: {{site.api}}/flutter/widgets/ScrollView-class.html
 [`Text`]: {{site.api}}/flutter/widgets/Text-class.html
 [`Transform`]: {{site.api}}/flutter/widgets/Transform-class.html
-
-[`build`]: {{site.api}}/flutter/widgets/State/build.html
+[Understanding constraints]: /docs/development/ui/layout/constraints
+[`double.infinity`]: {{site.api}}/flutter/dart-core/double/infinity-constant.html

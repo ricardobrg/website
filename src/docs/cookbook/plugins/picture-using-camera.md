@@ -48,6 +48,11 @@ dependencies:
 ```
 {{site.alert.tip}}
   - For android, You must have to update `minSdkVersion` to 21 (or higher).
+  - On iOS, lines below have to be added inside `ios/Runner/Info.plist` in order the access the camera.
+    ```
+    <key>NSCameraUsageDescription</key>
+    <string>Explanation on why the camera access is needed.</string>
+    ```
 {{site.alert.end}}
 
 ## 2. Get a list of the available cameras
@@ -174,15 +179,21 @@ FutureBuilder<void>(
 ## 5. Take a picture with the `CameraController`
 
 You can use the `CameraController` to take pictures using the
-[`takePicture()`][] method. In this example,
-create a `FloatingActionButton` that takes a picture
+[`takePicture()`][] method, which returns an [`XFile`][],
+a cross-platform, simplified `File` abstraction.
+On both Android and IOS, the new image is stored in their
+respective cache directories,
+and the `path` to that location is returned in the `XFile`.
+
+[`XFile`]:  {{site.pub}}/documentation/camera/latest/camera/XFile-class.html
+
+In this example, create a `FloatingActionButton` that takes a picture
 using the `CameraController` when a user taps on the button.
 
-Saving a picture requires 3 steps:
+Taking a picture requires 2 steps:
 
-  1. Ensure the camera is initialized
-  2. Construct a path that defines where the picture should be saved
-  3. Use the controller to take a picture and save the result to the path
+  1. Ensure that the camera is initialized.
+  2. Use the controller to take a picture and ensure that it returns a `Future<XFile>`.
 
 It is good practice to wrap these operations in a `try / catch` block in order
 to handle any errors that might occur.
@@ -199,17 +210,9 @@ FloatingActionButton(
       // Ensure that the camera is initialized.
       await _initializeControllerFuture;
 
-      // Construct the path where the image should be saved using the path
-      // package.
-      final path = join(
-        // Store the picture in the temp directory.
-        // Find the temp directory using the `path_provider` plugin.
-        (await getTemporaryDirectory()).path,
-        '${DateTime.now()}.png',
-      );
-
-      // Attempt to take a picture and log where it's been saved.
-      await _controller.takePicture(path);
+      // Attempt to take a picture and then get the location
+      // where the image file is saved.
+      final image = await _controller.takePicture();
     } catch (e) {
       // If an error occurs, log the error to the console.
       print(e);
@@ -240,8 +243,6 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart' show join;
-import 'package:path_provider/path_provider.dart';
 
 Future<void> main() async {
   // Ensure that plugin services are initialized so that `availableCameras()`
@@ -334,23 +335,19 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             // Ensure that the camera is initialized.
             await _initializeControllerFuture;
 
-            // Construct the path where the image should be saved using the
-            // pattern package.
-            final path = join(
-              // Store the picture in the temp directory.
-              // Find the temp directory using the `path_provider` plugin.
-              (await getTemporaryDirectory()).path,
-              '${DateTime.now()}.png',
-            );
-
-            // Attempt to take a picture and log where it's been saved.
-            await _controller.takePicture(path);
+            // Attempt to take a picture and get the file `image`
+            // where it was saved.
+            final image = await _controller.takePicture();
 
             // If the picture was taken, display it on a new screen.
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => DisplayPictureScreen(imagePath: path),
+                builder: (context) => DisplayPictureScreen(
+                  // Pass the automatically generated path to
+                  // the DisplayPictureScreen widget.
+                  imagePath: image?.path,
+                ),
               ),
             );
           } catch (e) {
@@ -386,4 +383,4 @@ class DisplayPictureScreen extends StatelessWidget {
 [`FutureBuilder`]: {{site.api}}/flutter/widgets/FutureBuilder-class.html
 [`path`]: {{site.pub-pkg}}/path
 [`path_provider`]: {{site.pub-pkg}}/path_provider
-[`takePicture()`]: {{site.pub-pkg}}/camera/latest/camera/CameraController/takePicture.html
+[`takePicture()`]: {{site.pub}}/documentation/camera/latest/camera/CameraController/takePicture.html

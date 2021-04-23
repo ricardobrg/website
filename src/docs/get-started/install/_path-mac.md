@@ -10,22 +10,22 @@ all terminal sessions are machine-specific.
 Typically you add a line to a file that is executed
 whenever you open a new window. For example:
 
- 1. Determine the directory where you placed the Flutter SDK.
+ 1. Determine the path of your clone of the Flutter SDK.
     You need this in Step 3.
  2. Open (or create) the `rc` file for your shell.
-    For example, macOS Mojave (and earlier)
-    uses the Bash shell by default,
-    so edit `$HOME/.bash_profile` or `$HOME/.bashrc`.
-    macOS Catalina uses the Z shell by default,
-    so edit `$HOME/.zshrc`.
-    If you are using a different shell, the file path
+    Typing `echo $SHELL` in your Terminal tells you
+    which shell you're using.
+    If you're using Bash,
+    edit `$HOME/.bash_profile` or `$HOME/.bashrc`.
+    If you're using Z shell, edit `$HOME/.zshrc`.
+    If you're using a different shell, the file path
     and filename will be different on your machine.
  3. Add the following line and change
-    `[PATH_TO_FLUTTER_GIT_DIRECTORY]` to be
-    the path where you cloned Flutter's git repo:
+    `[PATH_OF_FLUTTER_GIT_DIRECTORY]` to be
+    the path of your clone of the Flutter git repo:
 
     ```terminal
-    $ export PATH="$PATH:[PATH_TO_FLUTTER_GIT_DIRECTORY]/flutter/bin"
+    $ export PATH="$PATH:[PATH_OF_FLUTTER_GIT_DIRECTORY]/bin"
     ```
 
  4. Run `source $HOME/.<rc file>`
@@ -43,5 +43,7 @@ whenever you open a new window. For example:
     ```terminal
     $ which flutter
     ```
+
+{% include dart-tool.md %}
 
 [Get the Flutter SDK]: #get-sdk

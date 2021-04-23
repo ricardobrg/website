@@ -1,11 +1,13 @@
 ---
 title: Load sequence, performance, and memory
+description: What are the steps involved when showing a Flutter UI.
 ---
 
 This page describes the breakdown of the steps involved
-to show a Flutter UI. Knowing this, you can make better, informed decisions
-about when to pre-warm the Flutter engine, which operations are possible
-at which stage, and the latency and memory costs of those operations.
+to show a Flutter UI. Knowing this, you can make better,
+more informed decisions about when to pre-warm the Flutter engine,
+which operations are possible at which stage,
+and the latency and memory costs of those operations.
 
 ## Loading Flutter
 
@@ -16,13 +18,15 @@ conceptual loading steps when displaying the Flutter UI.
 
 ### Finding the Flutter resources
 
-Flutter's engine runtime and your application's compiled Dart code are both
-bundled as shared libraries on Android and iOS. The first step of loading
-Flutter is to find those resources in your .apk/.ipa/.app (along with
-other Flutter assets such as images, fonts, and JIT code if applicable).
+Flutter's engine runtime and your application's compiled
+Dart code are both bundled as shared libraries on Android
+and iOS. The first step of loading Flutter is to find those
+resources in your .apk/.ipa/.app (along with other Flutter
+assets such as images, fonts, and JIT code, if applicable).
 
-This happens when you construct a FlutterEngine for the first time on both
-**[Android][android-engine]** and **[iOS][ios-engine]** APIs.
+This happens when you construct a `FlutterEngine` for the
+first time on both **[Android][android-engine]**
+and **[iOS][ios-engine]** APIs.
 
 ### Loading the Flutter library
 
@@ -38,11 +42,13 @@ such as by running [`runWithEntrypoint:`][].
 
 ### Starting the Dart VM
 
-The Dart runtime is responsible for managing Dart memory and concurrency for
-your Dart code. In JIT mode, it's additionally responsible for compiling
+The Dart runtime is responsible for managing Dart memory and
+concurrency for your Dart code. In JIT mode,
+it's additionally responsible for compiling
 the Dart source code into machine code during runtime.
 
-A single Dart runtime exists per application session on Android and iOS.
+A single Dart runtime exists per application session on
+Android and iOS.
 
 A one-time Dart VM start is done when constructing the
 [`FlutterEngine`][android-engine] for the first time on
@@ -63,7 +69,7 @@ After the Dart runtime is initialized,
 the Flutter engine's usage of the Dart
 runtime is the next step.
 
-This is done by starting a [Dart `Isolate`] in the Dart runtime.
+This is done by starting a [Dart `Isolate`][] in the Dart runtime.
 The isolate is Dart's container for memory and threads.
 A number of [auxiliary threads][] on the host platform are
 also created at this point to support the isolate, such
@@ -128,7 +134,7 @@ The most relevant choice for add-to-app scenarios is for you
 to decide when to pre-load a `FlutterEngine`
 (that is, to load the Flutter library, start the Dart VM,
 and run entrypoint in an isolate), and what the memory and latency
-cost is of that pre-warm. You also need to know how the pre-warm 
+cost is of that pre-warm. You also need to know how the pre-warm
 affects the memory and latency cost of rendering a first Flutter
 frame when the UI component is subsequently attached
 to that `FlutterEngine`.
@@ -144,7 +150,8 @@ in release-AOT mode, pre-warming the `FlutterEngine` costs:
 A Flutter UI can be attached during the pre-warm.
 The remaining time is joined to the time-to-first-frame latency.
 
-Memory-wise, a cost sample (variable, depending on the use case) could be:
+Memory-wise, a cost sample (variable,
+depending on the use case) could be:
 
 * ~4 MB OS's memory usage for creating pthreads.
 * ~10 MB GPU driver memory.
@@ -163,7 +170,8 @@ a cost sample (variable, depending on the use case) could be:
 
 The `FlutterEngine` should be pre-warmed late enough to delay the
 memory consumption needed but early enough to avoid combining the
-Flutter engine start-up time with the first frame latency of showing Flutter.
+Flutter engine start-up time with the first frame latency of
+showing Flutter.
 
 The exact timing depends on the app's structure and heuristics.
 An example would be to load the Flutter engine in the screen
@@ -187,12 +195,14 @@ When the Flutter UI component is released, the UI-related memory is freed.
 This doesn't affect the Flutter state, which lives in the `FlutterEngine`
 (unless the `FlutterEngine` is also released).
 
+For performance details on creating more than one `FlutterEngine`,
+see [multiple Flutters][].
 
 [android-engine]: {{site.api}}/javadoc/io/flutter/embedding/engine/FlutterEngine.html
 [auxiliary threads]: {{site.github}}/flutter/flutter/wiki/The-Engine-architecture#threading
-[CAEAGLLayer]: https://developer.apple.com/documentation/quartzcore/caeagllayer
-[CAMetalLayer]: https://developer.apple.com/documentation/quartzcore/cametallayer
-[Dart `Isolate`]: {{site.dart.api}}/stable/dart-isolate/Isolate-class.htm
+[CAEAGLLayer]: {{site.apple-dev}}/documentation/quartzcore/caeagllayer
+[CAMetalLayer]: {{site.apple-dev}}/documentation/quartzcore/cametallayer
+[Dart `Isolate`]: {{site.dart.api}}/stable/dart-isolate/Isolate-class.html
 [Dart SDK]: {{site.dart-site}}/tools/sdk
 [`DartExecutor.executeDartEntrypoint()`]: {{site.api}}/javadoc/io/flutter/embedding/engine/dart/DartExecutor.html#executeDartEntrypoint-io.flutter.embedding.engine.dart.DartExecutor.DartEntrypoint-
 [`FlutterActivity.createDefaultIntent()`]: {{site.api}}/javadoc/io/flutter/embedding/android/FlutterActivity.html#createDefaultIntent-android.content.Context-
@@ -200,11 +210,12 @@ This doesn't affect the Flutter state, which lives in the `FlutterEngine`
 [`FlutterViewController`]: {{site.api}}/objcdoc/Classes/FlutterViewController.html
 [`FlutterViewController initWithProject: nibName: bundle:`]: {{site.api}}/objcdoc/Classes/FlutterViewController.html#/c:objc(cs)FlutterViewController(im)initWithProject:nibName:bundle:
 [`initWithEngine: nibName: bundle:`]: {{site.api}}/objcdoc/Classes/FlutterViewController.html#/c:objc(cs)FlutterViewController(im)initWithEngine:nibName:bundle:
-[`Intent`]: https://developer.android.com/reference/android/content/Intent.html
+[`Intent`]: {{site.android-dev}}/reference/android/content/Intent.html
 [ios-engine]: {{site.api}}/objcdoc/Classes/FlutterEngine.html
 [`Layer`]: {{site.api}}/flutter/rendering/Layer-class.html
+[multiple Flutters]: /docs/development/add-to-app/multiple-flutters
 [`runApp()`]: {{site.api}}/flutter/widgets/runApp.html
 [`runWithEntrypoint:`]: {{site.api}}/objcdoc/Classes/FlutterEngine.html#/c:objc(cs)FlutterEngine(im)runWithEntrypoint:
 [snapshot]: {{site.github}}/dart-lang/sdk/wiki/Snapshots
-[`startActivity()`]: https://developer.android.com/reference/android/content/Context.html#startActivity(android.content.Intent
-[`Surface`]: https://developer.android.com/reference/android/view/Surface
+[`startActivity()`]: {{site.android-dev}}/reference/android/content/Context.html#startActivity(android.content.Intent
+[`Surface`]: {{site.android-dev}}/reference/android/view/Surface

@@ -49,14 +49,15 @@ Scaffold(
 ## 2. Display a `SnackBar`
 
 With the `Scaffold` in place, display a `SnackBar`.
-First, create a `SnackBar`, then display it using the `Scaffold`.
+First, create a `SnackBar`, then display it using `ScaffoldMessenger`.
 
 <!-- skip -->
 ```dart
 final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
 
-// Find the Scaffold in the widget tree and use it to show a SnackBar.
-Scaffold.of(context).showSnackBar(snackBar);
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+ScaffoldMessenger.of(context).showSnackBar(snackBar);
 ```
 
 ## 3. Provide an optional action
@@ -70,6 +71,7 @@ the message.
 Here's an example of providing
 an additional `action` to the `SnackBar` widget:
 
+<!-- skip -->
 ```dart
 final snackBar = SnackBar(
   content: Text('Yay! A SnackBar!'),
@@ -114,7 +116,7 @@ class SnackBarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: () {
           final snackBar = SnackBar(
             content: Text('Yay! A SnackBar!'),
@@ -126,9 +128,9 @@ class SnackBarPage extends StatelessWidget {
             ),
           );
 
-          // Find the Scaffold in the widget tree and use
-          // it to show a SnackBar.
-          Scaffold.of(context).showSnackBar(snackBar);
+          // Find the ScaffoldMessenger in the widget tree
+          // and use it to show a SnackBar.
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         },
         child: Text('Show SnackBar'),
       ),

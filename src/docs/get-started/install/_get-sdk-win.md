@@ -6,12 +6,15 @@
     [(loading...)](#){:.download-latest-link-{{os}}.btn.btn-primary}
 
     For other release channels, and older builds, see the
-    [SDK archive][] page.
+    [SDK releases][] page.
  1. Extract the zip file and place the contained `flutter`
     in the desired installation location for the Flutter SDK
-    (for example, `C:\src\flutter`;
-    do not install Flutter in a directory like
-    `C:\Program Files\` that requires elevated privileges).
+    (for example, `C:\src\flutter`).
+    
+{{site.alert.warning}}
+  Do not install Flutter in a directory like 
+  `C:\Program Files\` that requires elevated privileges.
+{{site.alert.end}}
 
 If you don't want to install a fixed version of the installation 
 bundle, you can skip steps 1 and 2. Instead, get the source code 
@@ -22,7 +25,7 @@ GitHub, and change branches or tags as needed. For example:
 C:\src>git clone https://github.com/flutter/flutter.git -b stable
 ```
 
-You are now ready to run Flutter commands in the Flutter Console!
+You are now ready to run Flutter commands in the Flutter Console.
 
 ### Update your path
 
@@ -38,8 +41,10 @@ take these steps to add Flutter to the `PATH` environment variable:
     create a new user variable named `Path` with
     the full path to `flutter\bin` as its value.
 
-Note that you have to close and reopen any existing console windows
+You have to close and reopen any existing console windows
 for these changes to take effect.
+
+{% include dart-tool-win.md %}
 
 ### Run `flutter doctor`
 
@@ -71,8 +76,15 @@ finish the setup process. Once you have installed any missing
 dependencies, you can run the `flutter doctor` command again to
 verify that you’ve set everything up correctly.
 
+{{site.alert.note}}
+  If `flutter doctor` returns that either the Flutter plugin
+  or  Dart plugin of Android Studio are not installed, move
+  on to [Set up an editor][] to resolve this issue.
+{{site.alert.end}}
+
 {% include_relative _analytics.md %}
 
 
 [Flutter repo]: {{site.github}}/flutter/flutter
-[SDK archive]: /docs/development/tools/sdk/archive
+[SDK releases]: /docs/development/tools/sdk/releases
+[Set up an editor]: /docs/get-started/editor?tab=androidstudio

@@ -1,17 +1,9 @@
 ## Web setup
 
-{{site.alert.note}}
-  As of 1.12, Flutter has early support for running
-  web applications, but you need to be running the beta
-  channel of Flutter. If you experience a problem
-  that hasn’t yet been reported, please [file an issue][]
-  and make sure that "web" appears in the title.
-{{site.alert.end}}
+Flutter has support for building web applications in the
+`stable` channel. Any app created in Flutter 2 automatically
+builds for the web. To add web support to an existing app, follow
+the instructions on [Building a web application with Flutter][] 
+when you've completed the setup above.
 
-To prepare to run, test, and debug your Flutter app on the web,
-you must [install Chrome][], if you haven't already.
-
-[install Chrome]: https://www.google.com/chrome/
-[file an issue]: {{site.github}}/flutter/flutter/issues/new
-
-
+[Building a web application with Flutter]: /docs/get-started/web

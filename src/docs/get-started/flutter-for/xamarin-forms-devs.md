@@ -3,51 +3,57 @@ title: Flutter for Xamarin.Forms developers
 description: Learn how to apply Xamarin.Forms developer knowledge when building Flutter apps.
 ---
 
-This document is meant for Xamarin.Forms developers looking to apply their
-existing knowledge to build mobile apps with Flutter. If you understand
-the fundamentals of the Xamarin.Forms framework, then you can use this
+This document is meant for Xamarin.Forms developers looking
+to apply their existing knowledge to build mobile apps with
+Flutter. If you understand the fundamentals of the
+Xamarin.Forms framework, then you can use this
 document as a jump start to Flutter development.
 
-Your Android and iOS knowledge and skill set are valuable when building with
-Flutter, because Flutter relies on the native operating system configurations,
-similar to how you would configure your native Xamarin.Forms projects.
-The Flutter Frameworks is also similar to how you create a single UI,
+Your Android and iOS knowledge and skill set are valuable
+when building with Flutter, because Flutter relies on
+the native operating system configurations,
+similar to how you would configure your native
+Xamarin.Forms projects. The Flutter Frameworks
+is also similar to how you create a single UI,
 that is used on multiple platforms.
 
-This document can be used as a cookbook by jumping around and finding questions
+This document can be used as a cookbook by
+jumping around and finding questions
 that are most relevant to your needs.
 
 ## Project setup
 
 ### How does the app start?
 
-For each platform in Xamarin.Forms, you call the `LoadApplication` method,
+For each platform in Xamarin.Forms,
+you call the `LoadApplication` method,
 which creates a new application and starts your app.
 
 ```csharp
-LoadApplication(new App());
+LoadApplication(App());
 ```
 
-In Flutter, the default main entry point is `main` where you load your
-Flutter app.
+In Flutter, the default main entry point is
+`main` where you load your Flutter app.
 
+<!-- skip -->
 ```dart
 void main() {
-  runApp(new MyApp());
+  runApp(MyApp());
 }
 ```
 
-In Xamarin.Forms, you assign a `Page` to the `MainPage` property in the
-`Application` class.
+In Xamarin.Forms, you assign a `Page` to the
+`MainPage` property in the `Application` class.
 
 ```csharp
 public class App: Application
 {
     public App()
     {
-      MainPage = new ContentPage()
+      MainPage = ContentPage()
                  {
-                   new Label()
+                   Label()
                    {
                      Text="Hello World",
                      HorizontalOptions = LayoutOptions.Center,
@@ -61,12 +67,13 @@ public class App: Application
 In Flutter, "everything is a widget", even the application itself.
 The following example shows `MyApp`, a simple application `Widget`.
 
+<!-- skip -->
 ```dart
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new Center(
+    return Center(
         child: Text("Hello World!", textDirection: TextDirection.ltr));
   }
 }
@@ -77,31 +84,37 @@ class MyApp extends StatelessWidget {
 Xamarin.Forms has many different types of pages;
 `ContentPage` is the most common.  In Flutter,
 you specify an application widget that holds your root page.
-You can use a [MaterialApp][] widget,
+You can use a [`MaterialApp`][] widget,
 which supports [Material Design][], or you can use a
-[CupertinoApp][] widget, which supports an iOS-style app,
-or you can use the lower level [WidgetsApp][],
+[`CupertinoApp`][] widget, which supports an iOS-style app,
+or you can use the lower level [`WidgetsApp`][],
 which you can customize in any way you want.
 
-The following code defines the home page, a stateful widget. In Flutter,
-all widgets are immutable, but two types of widgets are supported:
-stateful and stateless. Examples of a stateless widget are titles,
-icons, or images.
+[`CupertinoApp`]: {{site.api}}/flutter/cupertino/CupertinoApp-class.html
+[`MaterialApp`]: {{site.api}}/flutter/material/MaterialApp-class.html
+[`WidgetsApp`]: {{site.api}}/flutter/widgets/WidgetsApp-class.html
 
-The following example uses MaterialApp,
+The following code defines the home page, a stateful widget.
+In Flutter, all widgets are immutable,
+but two types of widgets are supported:
+stateful and stateless. Examples of a stateless widget
+are titles, icons, or images.
+
+The following example uses `MaterialApp`,
 which holds its root page in the `home` property.
 
+<!-- skip -->
 ```dart
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -115,6 +128,7 @@ The first part, which is itself immutable, creates a State object
 that holds the state of the object. The State object persists over
 the life of the widget.
 
+<!-- skip -->
 ```dart
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -122,7 +136,7 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 ```
 
@@ -133,6 +147,7 @@ a build of that portion of the UI.  Make sure to call `setState()` only
 when necessary, and only on the part of the widget tree that has changed,
 or it can result in poor UI performance.
 
+<!-- skip -->
 ```dart
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
@@ -145,32 +160,32 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         // Take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set the appbar title.
-        title: new Text(widget.title),
+        title: Text(widget.title),
       ),
-      body: new Center(
+      body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: new Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
+            Text(
               'You have pushed the button this many times:',
             ),
-            new Text(
+            Text(
               '$_counter',
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
       ),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: new Icon(Icons.add),
+        child: Icon(Icons.add),
       ),
     );
   }
@@ -256,10 +271,11 @@ The following example shows how to use a `StatelessWidget`. A common
 `StatelessWidget` is the `Text` widget. If you look at the implementation of
 the `Text` widget you'll find it subclasses `StatelessWidget`.
 
+<!-- skip -->
 ```dart
-new Text(
+Text(
   'I like Flutter!',
-  style: new TextStyle(fontWeight: FontWeight.bold),
+  style: TextStyle(fontWeight: FontWeight.bold),
 );
 ```
 
@@ -273,23 +289,24 @@ To achieve this, wrap the `Text` widget in a `StatefulWidget` and
 update it when the user clicks the button, as shown in the following
 example:
 
+<!-- skip -->
 ```dart
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(new SampleApp());
+  runApp(SampleApp());
 }
 
 class SampleApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Sample App',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new SampleAppPage(),
+      home: SampleAppPage(),
     );
   }
 }
@@ -298,7 +315,7 @@ class SampleAppPage extends StatefulWidget {
   SampleAppPage({Key key}) : super(key: key);
 
   @override
-  _SampleAppPageState createState() => new _SampleAppPageState();
+  _SampleAppPageState createState() => _SampleAppPageState();
 }
 
 class _SampleAppPageState extends State<SampleAppPage> {
@@ -314,15 +331,15 @@ class _SampleAppPageState extends State<SampleAppPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Sample App"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Sample App"),
       ),
-      body: new Center(child: new Text(textToShow)),
-      floatingActionButton: new FloatingActionButton(
+      body: Center(child: Text(textToShow)),
+      floatingActionButton: FloatingActionButton(
         onPressed: _updateText,
         tooltip: 'Update Text',
-        child: new Icon(Icons.update),
+        child: Icon(Icons.update),
       ),
     );
   }
@@ -337,18 +354,21 @@ In Flutter, you write your layouts with a widget tree in code.
 
 The following example shows how to display a simple widget with padding:
 
+<!-- skip -->
 ```dart
 @override
 Widget build(BuildContext context) {
-  return new Scaffold(
-    appBar: new AppBar(
-      title: new Text("Sample App"),
+  return Scaffold(
+    appBar: AppBar(
+      title: Text("Sample App"),
     ),
-    body: new Center(
-      child: new MaterialButton(
+    body: Center(
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.only(left: 20.0, right: 30.0),
+        ),
         onPressed: () {},
-        child: new Text('Hello'),
-        padding: new EdgeInsets.only(left: 10.0, right: 10.0),
+        child: Text('Hello'),
       ),
     ),
   );
@@ -371,17 +391,18 @@ and control that child's creation with a boolean flag.
 The following example shows how to toggle between two widgets when the user
 clicks the `FloatingActionButton`:
 
+<!-- skip -->
 ```dart
 class SampleApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Sample App',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new SampleAppPage(),
+      home: SampleAppPage(),
     );
   }
 }
@@ -390,7 +411,7 @@ class SampleAppPage extends StatefulWidget {
   SampleAppPage({Key key}) : super(key: key);
 
   @override
-  _SampleAppPageState createState() => new _SampleAppPageState();
+  _SampleAppPageState createState() => _SampleAppPageState();
 }
 
 class _SampleAppPageState extends State<SampleAppPage> {
@@ -404,28 +425,28 @@ class _SampleAppPageState extends State<SampleAppPage> {
 
   _getToggleChild() {
     if (toggle) {
-      return new Text('Toggle One');
+      return Text('Toggle One');
     } else {
-      return new CupertinoButton(
+      return CupertinoButton(
         onPressed: () {},
-        child: new Text('Toggle Two'),
+        child: Text('Toggle Two'),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Sample App"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Sample App"),
       ),
-      body: new Center(
+      body: Center(
         child: _getToggleChild(),
       ),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: _toggle,
         tooltip: 'Update Text',
-        child: new Icon(Icons.update),
+        child: Icon(Icons.update),
       ),
     );
   }
@@ -471,23 +492,24 @@ and tell the controller to start the animation.
 The following example shows how to write a `FadeTransition` that fades
 the widget into a logo when you press the `FloatingActionButton`:
 
+<!-- skip -->
 ```dart
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(new FadeAppTest());
+  runApp(FadeAppTest());
 }
 
 class FadeAppTest extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Fade Demo',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new MyFadeTest(title: 'Fade Demo'),
+      home: MyFadeTest(title: 'Fade Demo'),
     );
   }
 }
@@ -496,7 +518,7 @@ class MyFadeTest extends StatefulWidget {
   MyFadeTest({Key key, this.title}) : super(key: key);
   final String title;
   @override
-  _MyFadeTest createState() => new _MyFadeTest();
+  _MyFadeTest createState() => _MyFadeTest();
 }
 
 class _MyFadeTest extends State<MyFadeTest> with TickerProviderStateMixin {
@@ -505,26 +527,27 @@ class _MyFadeTest extends State<MyFadeTest> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    controller = new AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
-    curve = new CurvedAnimation(parent: controller, curve: Curves.easeIn);
+    super.initState();
+    controller = AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
+    curve = CurvedAnimation(parent: controller, curve: Curves.easeIn);
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.title),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
       ),
-      body: new Center(
-          child: new Container(
-              child: new FadeTransition(
+      body: Center(
+          child: Container(
+              child: FadeTransition(
                   opacity: curve,
-                  child: new FlutterLogo(
+                  child: FlutterLogo(
                     size: 100.0,
                   )))),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         tooltip: 'Fade',
-        child: new Icon(Icons.brush),
+        child: Icon(Icons.brush),
         onPressed: () {
           controller.forward();
         },
@@ -552,33 +575,34 @@ see Collin's answer on [StackOverflow][].
 
 [StackOverflow]: {{site.so}}/questions/46241071/create-signature-area-for-mobile-app-in-dart-flutter
 
+<!-- skip -->
 ```dart
 import 'package:flutter/material.dart';
 
-void main() => runApp(new MaterialApp(home: new DemoApp()));
+void main() => runApp(MaterialApp(home: DemoApp()));
 
 class DemoApp extends StatelessWidget {
-  Widget build(BuildContext context) => new Scaffold(body: new Signature());
+  Widget build(BuildContext context) => Scaffold(body: Signature());
 }
 
 class Signature extends StatefulWidget {
-  SignatureState createState() => new SignatureState();
+  SignatureState createState() => SignatureState();
 }
 
 class SignatureState extends State<Signature> {
   List<Offset> _points = <Offset>[];
   Widget build(BuildContext context) {
-    return new GestureDetector(
+    return GestureDetector(
       onPanUpdate: (DragUpdateDetails details) {
         setState(() {
           RenderBox referenceBox = context.findRenderObject();
           Offset localPosition =
           referenceBox.globalToLocal(details.globalPosition);
-          _points = new List.from(_points)..add(localPosition);
+          _points = List.from(_points)..add(localPosition);
         });
       },
       onPanEnd: (DragEndDetails details) => _points.add(null),
-      child: new CustomPaint(painter: new SignaturePainter(_points), size: Size.infinite),
+      child: CustomPaint(painter: SignaturePainter(_points), size: Size.infinite),
     );
   }
 }
@@ -587,7 +611,7 @@ class SignaturePainter extends CustomPainter {
   SignaturePainter(this.points);
   final List<Offset> points;
   void paint(Canvas canvas, Size size) {
-    var paint = new Paint()
+    var paint = Paint()
       ..color = Colors.black
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5.0;
@@ -619,9 +643,10 @@ It is somewhat similar to implementing a custom control based off a
 custom logic.
 
 For example, how do you build a `CustomButton` that takes a label in
-the constructor? Create a CustomButton that composes a `RaisedButton`
-with a label, rather than by extending `RaisedButton`:
+the constructor? Create a CustomButton that composes a `ElevatedButton`
+with a label, rather than by extending `ElevatedButton`:
 
+<!-- skip -->
 ```dart
 class CustomButton extends StatelessWidget {
   final String label;
@@ -630,18 +655,19 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new RaisedButton(onPressed: () {}, child: new Text(label));
+    return ElevatedButton(onPressed: () {}, child: Text(label));
   }
 }
 ```
 
 Then use `CustomButton`, just as you'd use any other Flutter widget:
 
+<!-- skip -->
 ```dart
 @override
 Widget build(BuildContext context) {
-  return new Center(
-    child: new CustomButton("Hello"),
+  return Center(
+    child: CustomButton("Hello"),
   );
 }
 ```
@@ -650,8 +676,8 @@ Widget build(BuildContext context) {
 
 ### How do I navigate between pages?
 
-In Xamarin.Forms, the `NavigationPage` class provides a hierarchical 
-navigation experience where the user is able to navigate through pages, 
+In Xamarin.Forms, the `NavigationPage` class provides a hierarchical
+navigation experience where the user is able to navigate through pages,
 forwards and backwards.
 
 Flutter has a similar implementation, using a `Navigator` and
@@ -669,14 +695,15 @@ To navigate between pages, you have a couple options:
 
 The following example builds a `Map`.
 
+<!-- skip -->
 ```dart
 void main() {
-  runApp(new MaterialApp(
-    home: new MyAppHome(), // becomes the route named '/'
+  runApp(MaterialApp(
+    home: MyAppHome(), // becomes the route named '/'
     routes: <String, WidgetBuilder> {
-      '/a': (BuildContext context) => new MyPage(title: 'page A'),
-      '/b': (BuildContext context) => new MyPage(title: 'page B'),
-      '/c': (BuildContext context) => new MyPage(title: 'page C'),
+      '/a': (BuildContext context) => MyPage(title: 'page A'),
+      '/b': (BuildContext context) => MyPage(title: 'page B'),
+      '/c': (BuildContext context) => MyPage(title: 'page C'),
     },
   ));
 }
@@ -684,6 +711,7 @@ void main() {
 
 Navigate to a route by pushing its name to the `Navigator`.
 
+<!-- skip -->
 ```dart
 Navigator.of(context).pushNamed('/b');
 ```
@@ -699,6 +727,7 @@ explained in more detail in [Async UI][].
 For example, to start a `location` route that lets the user select their
 location, you might do the following:
 
+<!-- skip -->
 ```dart
 Map coordinates = await Navigator.of(context).pushNamed('/location');
 ```
@@ -706,6 +735,7 @@ Map coordinates = await Navigator.of(context).pushNamed('/location');
 And then, inside your ‘location’ route, once the user has selected their
 location, pop the stack with the result:
 
+<!-- skip -->
 ```dart
 Navigator.of(context).pop({"lat":43.821757,"long":-79.226392});
 ```
@@ -743,12 +773,13 @@ Xamarin.Forms developer.
 For example, you can run network code without causing the UI to hang by
 using `async`/`await` and letting Dart do the heavy lifting:
 
+<!-- skip -->
 ```dart
 loadData() async {
   String dataURL = "https://jsonplaceholder.typicode.com/posts";
   http.Response response = await http.get(dataURL);
   setState(() {
-    widgets = json.decode(response.body);
+    widgets = jsonDecode(response.body);
   });
 }
 ```
@@ -759,6 +790,7 @@ which triggers a rebuild of the widget sub-tree and updates the data.
 The following example loads data asynchronously and displays it
 in a `ListView`:
 
+<!-- skip -->
 ```dart
 import 'dart:convert';
 
@@ -766,18 +798,18 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
-  runApp(new SampleApp());
+  runApp(SampleApp());
 }
 
 class SampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Sample App',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new SampleAppPage(),
+      home: SampleAppPage(),
     );
   }
 }
@@ -786,7 +818,7 @@ class SampleAppPage extends StatefulWidget {
   SampleAppPage({Key key}) : super(key: key);
 
   @override
-  _SampleAppPageState createState() => new _SampleAppPageState();
+  _SampleAppPageState createState() => _SampleAppPageState();
 }
 
 class _SampleAppPageState extends State<SampleAppPage> {
@@ -795,17 +827,16 @@ class _SampleAppPageState extends State<SampleAppPage> {
   @override
   void initState() {
     super.initState();
-
     loadData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Sample App"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Sample App"),
       ),
-      body: new ListView.builder(
+      body: ListView.builder(
           itemCount: widgets.length,
           itemBuilder: (BuildContext context, int position) {
             return getRow(position);
@@ -813,9 +844,9 @@ class _SampleAppPageState extends State<SampleAppPage> {
   }
 
   Widget getRow(int i) {
-    return new Padding(
-      padding: new EdgeInsets.all(10.0),
-      child: new Text("Row ${widgets[i]["title"]}")
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Text("Row ${widgets[i]["title"]}")
     );
   }
 
@@ -823,7 +854,7 @@ class _SampleAppPageState extends State<SampleAppPage> {
     String dataURL = "https://jsonplaceholder.typicode.com/posts";
     http.Response response = await http.get(dataURL);
     setState(() {
-      widgets = json.decode(response.body);
+      widgets = jsonDecode(response.body);
     });
   }
 }
@@ -849,12 +880,13 @@ move things to a different thread via `Task.Run()` in Xamarin.Forms.
 For I/O-bound work, declare the function as an `async` function,
 and `await` on long-running tasks inside the function:
 
+<!-- skip -->
 ```dart
 loadData() async {
   String dataURL = "https://jsonplaceholder.typicode.com/posts";
   http.Response response = await http.get(dataURL);
   setState(() {
-    widgets = json.decode(response.body);
+    widgets = jsonDecode(response.body);
   });
 }
 ```
@@ -874,15 +906,19 @@ or update your UI by calling `setState()`.
 The following example shows, in a simple isolate, how to share data back to
 the main thread to update the UI.
 
+<!-- skip -->
 ```dart
 loadData() async {
-  ReceivePort receivePort = new ReceivePort();
+  ReceivePort receivePort = ReceivePort();
   await Isolate.spawn(dataLoader, receivePort.sendPort);
 
   // The 'echo' isolate sends its SendPort as the first message.
   SendPort sendPort = await receivePort.first;
 
-  List msg = await sendReceive(sendPort, "https://jsonplaceholder.typicode.com/posts");
+  List msg = await sendReceive(
+    sendPort,
+    "https://jsonplaceholder.typicode.com/posts",
+  );
 
   setState(() {
     widgets = msg;
@@ -892,7 +928,7 @@ loadData() async {
 // The entry point for the isolate.
 static dataLoader(SendPort sendPort) async {
   // Open the ReceivePort for incoming messages.
-  ReceivePort port = new ReceivePort();
+  ReceivePort port = ReceivePort();
 
   // Notify any other isolates what port this isolate listens to.
   sendPort.send(port.sendPort);
@@ -904,12 +940,12 @@ static dataLoader(SendPort sendPort) async {
     String dataURL = data;
     http.Response response = await http.get(dataURL);
     // Lots of JSON to parse
-    replyTo.send(json.decode(response.body));
+    replyTo.send(jsonDecode(response.body));
   }
 }
 
 Future sendReceive(SendPort port, msg) {
-  ReceivePort response = new ReceivePort();
+  ReceivePort response = ReceivePort();
   port.send([msg, response.sendPort]);
   return response.first;
 }
@@ -932,18 +968,18 @@ import 'dart:async';
 import 'dart:isolate';
 
 void main() {
-  runApp(new SampleApp());
+  runApp(SampleApp());
 }
 
 class SampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Sample App',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new SampleAppPage(),
+      home: SampleAppPage(),
     );
   }
 }
@@ -952,7 +988,7 @@ class SampleAppPage extends StatefulWidget {
   SampleAppPage({Key key}) : super(key: key);
 
   @override
-  _SampleAppPageState createState() => new _SampleAppPageState();
+  _SampleAppPageState createState() => _SampleAppPageState();
 }
 
 class _SampleAppPageState extends State<SampleAppPage> {
@@ -981,36 +1017,42 @@ class _SampleAppPageState extends State<SampleAppPage> {
   }
 
   getProgressDialog() {
-    return new Center(child: new CircularProgressIndicator());
+    return Center(child: CircularProgressIndicator());
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Sample App"),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Sample App"),
         ),
         body: getBody());
   }
 
-  ListView getListView() => new ListView.builder(
+  ListView getListView() => ListView.builder(
       itemCount: widgets.length,
       itemBuilder: (BuildContext context, int position) {
         return getRow(position);
       });
 
   Widget getRow(int i) {
-    return new Padding(padding: new EdgeInsets.all(10.0), child: new Text("Row ${widgets[i]["title"]}"));
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Text("Row ${widgets[i]["title"]}"),
+    );
   }
 
   loadData() async {
-    ReceivePort receivePort = new ReceivePort();
+    ReceivePort receivePort = ReceivePort();
     await Isolate.spawn(dataLoader, receivePort.sendPort);
 
     // The 'echo' isolate sends its SendPort as the first message.
     SendPort sendPort = await receivePort.first;
 
-    List msg = await sendReceive(sendPort, "https://jsonplaceholder.typicode.com/posts");
+    List msg = await sendReceive(
+      sendPort,
+      "https://jsonplaceholder.typicode.com/posts",
+    );
 
     setState(() {
       widgets = msg;
@@ -1020,7 +1062,7 @@ class _SampleAppPageState extends State<SampleAppPage> {
   // the entry point for the isolate
   static dataLoader(SendPort sendPort) async {
     // Open the ReceivePort for incoming messages.
-    ReceivePort port = new ReceivePort();
+    ReceivePort port = ReceivePort();
 
     // Notify any other isolates what port this isolate listens to.
     sendPort.send(port.sendPort);
@@ -1032,12 +1074,12 @@ class _SampleAppPageState extends State<SampleAppPage> {
       String dataURL = data;
       http.Response response = await http.get(dataURL);
       // Lots of JSON to parse
-      replyTo.send(json.decode(response.body));
+      replyTo.send(jsonDecode(response.body));
     }
   }
 
   Future sendReceive(SendPort port, msg) {
-    ReceivePort response = new ReceivePort();
+    ReceivePort response = ReceivePort();
     port.send([msg, response.sendPort]);
     return response.first;
   }
@@ -1061,6 +1103,7 @@ dependencies:
 
 To make a network request, call `await` on the `async` function `http.get()`:
 
+<!-- skip -->
 ```dart
 import 'dart:convert';
 
@@ -1071,7 +1114,7 @@ import 'package:http/http.dart' as http;
     String dataURL = "https://jsonplaceholder.typicode.com/posts";
     http.Response response = await http.get(dataURL);
     setState(() {
-      widgets = json.decode(response.body);
+      widgets = jsonDecode(response.body);
     });
   }
 }
@@ -1093,6 +1136,7 @@ functions. If `showLoadingDialog()` is `true` (when `widgets.length == 0`),
 then render the `ProgressIndicator`. Otherwise, render the
 `ListView` with the data returned from a network call.
 
+<!-- skip -->
 ```dart
 import 'dart:convert';
 
@@ -1100,18 +1144,18 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
-  runApp(new SampleApp());
+  runApp(SampleApp());
 }
 
 class SampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Sample App',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new SampleAppPage(),
+      home: SampleAppPage(),
     );
   }
 }
@@ -1120,7 +1164,7 @@ class SampleAppPage extends StatefulWidget {
   SampleAppPage({Key key}) : super(key: key);
 
   @override
-  _SampleAppPageState createState() => new _SampleAppPageState();
+  _SampleAppPageState createState() => _SampleAppPageState();
 }
 
 class _SampleAppPageState extends State<SampleAppPage> {
@@ -1145,33 +1189,36 @@ class _SampleAppPageState extends State<SampleAppPage> {
   }
 
   getProgressDialog() {
-    return new Center(child: new CircularProgressIndicator());
+    return Center(child: CircularProgressIndicator());
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Sample App"),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Sample App"),
         ),
         body: getBody());
   }
 
-  ListView getListView() => new ListView.builder(
+  ListView getListView() => ListView.builder(
       itemCount: widgets.length,
       itemBuilder: (BuildContext context, int position) {
         return getRow(position);
       });
 
   Widget getRow(int i) {
-    return new Padding(padding: new EdgeInsets.all(10.0), child: new Text("Row ${widgets[i]["title"]}"));
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Text("Row ${widgets[i]["title"]}"),
+    );
   }
 
   loadData() async {
     String dataURL = "https://jsonplaceholder.typicode.com/posts";
     http.Response response = await http.get(dataURL);
     setState(() {
-      widgets = json.decode(response.body);
+      widgets = jsonDecode(response.body);
     });
   }
 }
@@ -1229,6 +1276,7 @@ in the `images` folder, and all the other variants in sub-folders
 called with the appropriate ratio multiplier:
 
 
+<!-- skip -->
 ```dart
 images/my_icon.png       // Base: 1.0x image
 images/2.0x/my_icon.png  // 2.0x image
@@ -1244,16 +1292,18 @@ assets:
 
 You can then access your images using `AssetImage`:
 
+<!-- skip -->
 ```dart
-return new AssetImage("images/a_dot_burr.jpeg");
+return AssetImage("images/a_dot_burr.jpeg");
 ```
 
 or directly in an `Image` widget:
 
+<!-- skip -->
 ```dart
 @override
 Widget build(BuildContext context) {
-  return new Image.asset("images/my_image.png");
+  return Image.asset("images/my_image.png");
 }
 ```
 
@@ -1267,6 +1317,7 @@ have a dedicated resources-like system for strings. At the moment,
 the best practice is to hold your copy text in a class as static
 fields and accessing them from there. For example:
 
+<!-- skip -->
 ```dart
 class Strings {
   static String welcomeMessage = "Welcome To Flutter";
@@ -1275,8 +1326,9 @@ class Strings {
 
 Then in your code, you can access your strings as such:
 
+<!-- skip -->
 ```dart
-new Text(Strings.welcomeMessage)
+Text(Strings.welcomeMessage)
 ```
 
 By default, Flutter only supports US English for its strings. If you need to
@@ -1295,10 +1347,11 @@ dependencies:
 To use the `flutter_localizations` package,
 specify the `localizationsDelegates` and `supportedLocales` on the app widget:
 
+<!-- skip -->
 ```dart
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-new MaterialApp(
+MaterialApp(
  localizationsDelegates: [
    // Add app-specific localization delegate[s] here.
    GlobalMaterialLocalizations.delegate,
@@ -1313,14 +1366,17 @@ new MaterialApp(
 )
 ```
 
-The delegates contain the actual localized values, while the `supportedLocales`
-defines which locales the app supports. The above example uses a `MaterialApp`,
+The delegates contain the actual localized values,
+while the `supportedLocales` defines which locales
+the app supports. The above example uses a `MaterialApp`,
 so it has both a `GlobalWidgetsLocalizations` for the base
-widgets localized values, and a `MaterialWidgetsLocalizations` for the Material
-widgets localizations. If you use `WidgetsApp` for your app, you don't
+widgets localized values, and a `MaterialWidgetsLocalizations`
+for the Material widgets localizations.
+If you use `WidgetsApp` for your app, you don't
 need the latter. Note that these two delegates contain "default"
-values, but you'll need to provide one or more delegates for your own app's
-localizable copy, if you want those to be localized too.
+values, but you'll need to provide one or more delegates
+for your own app's localizable copy,
+if you want those to be localized too.
 
 When initialized, the `WidgetsApp` (or `MaterialApp`)
 creates a [`Localizations`][] widget for you,
@@ -1407,31 +1463,33 @@ If you notice the two code samples are identical with the exception of the
 exploited to develop rich layouts that can change overtime with the same
 children.
 
+<!-- skip -->
 ```dart
 @override
 Widget build(BuildContext context) {
-  return new Row(
+  return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
-      new Text('Row One'),
-      new Text('Row Two'),
-      new Text('Row Three'),
-      new Text('Row Four'),
+      Text('Row One'),
+      Text('Row Two'),
+      Text('Row Three'),
+      Text('Row Four'),
     ],
   );
 }
 ```
 
+<!-- skip -->
 ```dart
 @override
 Widget build(BuildContext context) {
-  return new Column(
+  return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
-      new Text('Column One'),
-      new Text('Column Two'),
-      new Text('Column Three'),
-      new Text('Column Four'),
+      Text('Column One'),
+      Text('Column Two'),
+      Text('Column Three'),
+      Text('Column Four'),
     ],
   );
 }
@@ -1444,6 +1502,7 @@ This is much more powerful than what you are used to in Xamarin.Forms.
 A `GridView` provides automatic scrolling when the
 content exceeds its viewable space.
 
+<!-- skip -->
 ```dart
 GridView.count(
   // Create a grid with 2 columns. If you change the scrollDirection to
@@ -1467,13 +1526,14 @@ In Flutter, you accomplish this with the `Stack` widget
 
 This sample creates two icons that overlap each other.
 
+<!-- skip -->
 ```dart
-child: new Stack(
+child: Stack(
   children: <Widget>[
-    new Icon(Icons.add_box, size: 24.0, color: const Color.fromRGBO(0,0,0,1.0)),
-    new Positioned(
+    Icon(Icons.add_box, size: 24.0, color: const Color.fromRGBO(0,0,0,1.0)),
+    Positioned(
       left: 10.0,
-      child: new Icon(Icons.add_circle, size: 24.0, color: const Color.fromRGBO(0,0,0,1.0)),
+      child: Icon(Icons.add_circle, size: 24.0, color: const Color.fromRGBO(0,0,0,1.0)),
     ),
   ],
 ),
@@ -1487,11 +1547,12 @@ if the content is larger than the device screen, it scrolls.
 In Flutter, the closest match is the `SingleChildScrollView` widget.
 You simply fill the Widget with the content that you want to be scrollable.
 
+<!-- skip -->
 ```dart
 @override
 Widget build(BuildContext context) {
-  return new SingleChildScrollView(
-    child: new Text('Long Content'),
+  return SingleChildScrollView(
+    child: Text('Long Content'),
   );
 }
 ```
@@ -1503,15 +1564,16 @@ but in Flutter this is far more optimized
 and less intensive than a Xamarin.Forms `ListView`,
 which is backing on to platform specific controls.
 
+<!-- skip -->
 ```dart
 @override
 Widget build(BuildContext context) {
-  return new ListView(
+  return ListView(
     children: <Widget>[
-      new Text('Row One'),
-      new Text('Row Two'),
-      new Text('Row Three'),
-      new Text('Row Four'),
+      Text('Row One'),
+      Text('Row Two'),
+      Text('Row Three'),
+      Text('Row Four'),
     ],
   );
 }
@@ -1536,18 +1598,18 @@ tied to this event. Alternatively you would use the
 `TapGestureRecognizer`. In Flutter there are two very similar ways:
 
  1. If the widget supports event detection, pass a function to it and
-    handle it in the function. For example, the RaisedButton has an
+    handle it in the function. For example, the ElevatedButton has an
     `onPressed` parameter:
 
     <!-- skip -->
     ```dart
     @override
     Widget build(BuildContext context) {
-      return new RaisedButton(
+      return ElevatedButton(
           onPressed: () {
             print("click");
           },
-          child: new Text("Button"));
+          child: Text("Button"));
     }
     ```
 
@@ -1560,10 +1622,10 @@ tied to this event. Alternatively you would use the
     class SampleApp extends StatelessWidget {
       @override
       Widget build(BuildContext context) {
-        return new Scaffold(
-            body: new Center(
-          child: new GestureDetector(
-            child: new FlutterLogo(
+        return Scaffold(
+            body: Center(
+          child: GestureDetector(
+            child: FlutterLogo(
               size: 200.0,
             ),
             onTap: () {
@@ -1652,25 +1714,27 @@ range of Gestures such as:
 The following example shows a `GestureDetector` that rotates the
 Flutter logo on a double tap:
 
+<!-- skip -->
 ```dart
 AnimationController controller;
 CurvedAnimation curve;
 
 @override
 void initState() {
-  controller = new AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
-  curve = new CurvedAnimation(parent: controller, curve: Curves.easeIn);
+  super.initState();
+  controller = AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
+  curve = CurvedAnimation(parent: controller, curve: Curves.easeIn);
 }
 
 class SampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        body: new Center(
-          child: new GestureDetector(
-            child: new RotationTransition(
+    return Scaffold(
+        body: Center(
+          child: GestureDetector(
+            child: RotationTransition(
                 turns: curve,
-                child: new FlutterLogo(
+                child: FlutterLogo(
                   size: 200.0,
                 )),
             onDoubleTap: () {
@@ -1696,30 +1760,31 @@ In a Xamarin.Forms `ListView`,
 you create a `ViewCell` and possibly a `DataTemplateSelector`
 and pass it into the `ListView`, which renders each row with
 what your `DataTemplateSelector` or `ViewCell` returns.
-However, you often have have to make sure you turn on Cell Recycling
+However, you often have to make sure you turn on Cell Recycling
 otherwise you will run into memory issues and slow scrolling speeds.
 
 Due to Flutter's immutable widget pattern, you pass a list of
 widgets to your `ListView`, and Flutter takes care of making sure
 that scrolling is fast and smooth.
 
+<!-- skip -->
 ```dart
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(new SampleApp());
+  runApp(SampleApp());
 }
 
 class SampleApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Sample App',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new SampleAppPage(),
+      home: SampleAppPage(),
     );
   }
 }
@@ -1728,24 +1793,24 @@ class SampleAppPage extends StatefulWidget {
   SampleAppPage({Key key}) : super(key: key);
 
   @override
-  _SampleAppPageState createState() => new _SampleAppPageState();
+  _SampleAppPageState createState() => _SampleAppPageState();
 }
 
 class _SampleAppPageState extends State<SampleAppPage> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Sample App"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Sample App"),
       ),
-      body: new ListView(children: _getListData()),
+      body: ListView(children: _getListData()),
     );
   }
 
   _getListData() {
     List<Widget> widgets = [];
     for (int i = 0; i < 100; i++) {
-      widgets.add(new Padding(padding: new EdgeInsets.all(10.0), child: new Text("Row $i")));
+      widgets.add(Padding(padding: EdgeInsets.all(10.0), child: Text("Row $i")));
     }
     return widgets;
   }
@@ -1761,23 +1826,24 @@ behaviors change.
 
 In Flutter, use the touch handling provided by the passed-in widgets.
 
+<!-- skip -->
 ```dart
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(new SampleApp());
+  runApp(SampleApp());
 }
 
 class SampleApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Sample App',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new SampleAppPage(),
+      home: SampleAppPage(),
     );
   }
 }
@@ -1786,27 +1852,27 @@ class SampleAppPage extends StatefulWidget {
   SampleAppPage({Key key}) : super(key: key);
 
   @override
-  _SampleAppPageState createState() => new _SampleAppPageState();
+  _SampleAppPageState createState() => _SampleAppPageState();
 }
 
 class _SampleAppPageState extends State<SampleAppPage> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Sample App"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Sample App"),
       ),
-      body: new ListView(children: _getListData()),
+      body: ListView(children: _getListData()),
     );
   }
 
   _getListData() {
     List<Widget> widgets = [];
     for (int i = 0; i < 100; i++) {
-      widgets.add(new GestureDetector(
-        child: new Padding(
-            padding: new EdgeInsets.all(10.0),
-            child: new Text("Row $i")),
+      widgets.add(GestureDetector(
+        child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text("Row $i")),
         onTap: () {
           print('row tapped');
         },
@@ -1838,23 +1904,24 @@ For a simple way to update your `ListView`, create a new `List` inside of
 While this approach is simple, it is not recommended for large data sets,
 as shown in the next example.
 
+<!-- skip -->
 ```dart
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(new SampleApp());
+  runApp(SampleApp());
 }
 
 class SampleApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Sample App',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new SampleAppPage(),
+      home: SampleAppPage(),
     );
   }
 }
@@ -1863,11 +1930,11 @@ class SampleAppPage extends StatefulWidget {
   SampleAppPage({Key key}) : super(key: key);
 
   @override
-  _SampleAppPageState createState() => new _SampleAppPageState();
+  _SampleAppPageState createState() => _SampleAppPageState();
 }
 
 class _SampleAppPageState extends State<SampleAppPage> {
-  List widgets = [];
+  List<Widget> widgets = [];
 
   @override
   void initState() {
@@ -1879,23 +1946,23 @@ class _SampleAppPageState extends State<SampleAppPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Sample App"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Sample App"),
       ),
-      body: new ListView(children: widgets),
+      body: ListView(children: widgets),
     );
   }
 
   Widget getRow(int i) {
-    return new GestureDetector(
-      child: new Padding(
-          padding: new EdgeInsets.all(10.0),
-          child: new Text("Row $i")),
+    return GestureDetector(
+      child: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Text("Row $i")),
       onTap: () {
         setState(() {
-          widgets = new List.from(widgets);
-          widgets.add(getRow(widgets.length + 1));
+          widgets = List.from(widgets);
+          widgets.add(getRow(widgets.length));
           print('row $i');
         });
       },
@@ -1910,23 +1977,24 @@ list or a list with very large amounts of data. This is essentially
 the equivalent of RecyclerView on Android, which automatically
 recycles list elements for you:
 
+<!-- skip -->
 ```dart
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(new SampleApp());
+  runApp(SampleApp());
 }
 
 class SampleApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Sample App',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new SampleAppPage(),
+      home: SampleAppPage(),
     );
   }
 }
@@ -1935,11 +2003,11 @@ class SampleAppPage extends StatefulWidget {
   SampleAppPage({Key key}) : super(key: key);
 
   @override
-  _SampleAppPageState createState() => new _SampleAppPageState();
+  _SampleAppPageState createState() => _SampleAppPageState();
 }
 
 class _SampleAppPageState extends State<SampleAppPage> {
-  List widgets = [];
+  List<Widget> widgets = [];
 
   @override
   void initState() {
@@ -1951,11 +2019,11 @@ class _SampleAppPageState extends State<SampleAppPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Sample App"),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Sample App"),
         ),
-        body: new ListView.builder(
+        body: ListView.builder(
             itemCount: widgets.length,
             itemBuilder: (BuildContext context, int position) {
               return getRow(position);
@@ -1963,13 +2031,13 @@ class _SampleAppPageState extends State<SampleAppPage> {
   }
 
   Widget getRow(int i) {
-    return new GestureDetector(
-      child: new Padding(
-          padding: new EdgeInsets.all(10.0),
-          child: new Text("Row $i")),
+    return GestureDetector(
+      child: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Text("Row $i")),
       onTap: () {
         setState(() {
-          widgets.add(getRow(widgets.length + 1));
+          widgets.add(getRow(widgets.length));
           print('row $i');
         });
       },
@@ -2015,17 +2083,18 @@ fonts:
 
 Then assign the font to your `Text` widget:
 
+<!-- skip -->
 ```dart
 @override
 Widget build(BuildContext context) {
-  return new Scaffold(
-    appBar: new AppBar(
-      title: new Text("Sample App"),
+  return Scaffold(
+    appBar: AppBar(
+      title: Text("Sample App"),
     ),
-    body: new Center(
-      child: new Text(
+    body: Center(
+      child: Text(
         'This is a custom font text',
-        style: new TextStyle(fontFamily: 'MyCustomFont'),
+        style: TextStyle(fontFamily: 'MyCustomFont'),
       ),
     ),
   );
@@ -2066,11 +2135,12 @@ and is different than how you are used to. If you have a `TextField`
 or a `TextFormField`, you can supply a [`TextEditingController`][]
 to retrieve user input:
 
+<!-- skip -->
 ```dart
 class _MyFormState extends State<MyForm> {
   // Create a text controller and use it to retrieve the current value
   // of the TextField.
-  final myController = new TextEditingController();
+  final myController = TextEditingController();
 
   @override
   void dispose() {
@@ -2081,33 +2151,33 @@ class _MyFormState extends State<MyForm> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Retrieve Text Input'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Retrieve Text Input'),
       ),
-      body: new Padding(
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: new TextField(
+        child: TextField(
           controller: myController,
         ),
       ),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         // When the user presses the button, show an alert dialog with the
         // text that the user has typed into our text field.
         onPressed: () {
           return showDialog(
             context: context,
             builder: (context) {
-              return new AlertDialog(
+              return AlertDialog(
                 // Retrieve the text that the user has entered using the
                 // TextEditingController.
-                content: new Text(myController.text),
+                content: Text(myController.text),
               );
             },
           );
         },
         tooltip: 'Show me the value!',
-        child: new Icon(Icons.text_fields),
+        child: Icon(Icons.text_fields),
       ),
     );
   }
@@ -2131,10 +2201,11 @@ In Flutter, you can easily show a "hint" or a placeholder text
 for your input by adding an InputDecoration object to the
 decoration constructor parameter for the text widget.
 
+<!-- skip -->
 ```dart
-body: new Center(
-  child: new TextField(
-    decoration: new InputDecoration(hintText: "This is a hint"),
+body: Center(
+  child: TextField(
+    decoration: InputDecoration(hintText: "This is a hint"),
   )
 )
 ```
@@ -2152,23 +2223,24 @@ However, you don't want to start off by showing an error.
 Instead, when the user has entered invalid data,
 update the state, and pass a new `InputDecoration` object.
 
+<!-- skip -->
 ```dart
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(new SampleApp());
+  runApp(SampleApp());
 }
 
 class SampleApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Sample App',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new SampleAppPage(),
+      home: SampleAppPage(),
     );
   }
 }
@@ -2177,7 +2249,7 @@ class SampleAppPage extends StatefulWidget {
   SampleAppPage({Key key}) : super(key: key);
 
   @override
-  _SampleAppPageState createState() => new _SampleAppPageState();
+  _SampleAppPageState createState() => _SampleAppPageState();
 }
 
 class _SampleAppPageState extends State<SampleAppPage> {
@@ -2185,12 +2257,12 @@ class _SampleAppPageState extends State<SampleAppPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Sample App"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Sample App"),
       ),
-      body: new Center(
-        child: new TextField(
+      body: Center(
+        child: TextField(
           onSubmitted: (String text) {
             setState(() {
               if (!isEmail(text)) {
@@ -2200,7 +2272,7 @@ class _SampleAppPageState extends State<SampleAppPage> {
               }
             });
           },
-          decoration: new InputDecoration(hintText: "This is a hint", errorText: _getErrorText()),
+          decoration: InputDecoration(hintText: "This is a hint", errorText: _getErrorText()),
         ),
       ),
     );
@@ -2214,7 +2286,7 @@ class _SampleAppPageState extends State<SampleAppPage> {
     String emailRegexp =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
-    RegExp regExp = new RegExp(emailRegexp);
+    RegExp regExp = RegExp(emailRegexp);
 
     return regExp.hasMatch(em);
   }
@@ -2321,9 +2393,10 @@ In Flutter you declare themes in the top level widget.
 
 To take full advantage of Material Components in your app,
 you can declare a top level widget `MaterialApp` as the entry
-point to your application. MaterialApp is a convenience widget
+point to your application. `MaterialApp` is a convenience widget
 that wraps a number of widgets that are commonly required for
-applications implementing Material Design. It builds upon a WidgetsApp by
+applications implementing Material Design.
+It builds upon a `WidgetsApp` by
 adding Material-specific functionality.
 
 You can also use a `WidgetsApp` as your app widget,
@@ -2335,17 +2408,18 @@ pass a `ThemeData` object to the `MaterialApp` widget.
 For example, in the following code,
 the primary swatch is set to blue and text selection color is red.
 
+<!-- skip -->
 ```dart
 class SampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Sample App',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
         textSelectionColor: Colors.red
       ),
-      home: new SampleAppPage(),
+      home: SampleAppPage(),
     );
   }
 }
@@ -2355,7 +2429,7 @@ class SampleApp extends StatelessWidget {
 
 ### How do I access shared preferences or UserDefaults?
 
-Xamarin.Forms developers will likely be familar with the
+Xamarin.Forms developers will likely be familiar with the
 `Xam.Plugins.Settings` plugin.
 
 In Flutter, access equivalent functionality using the
@@ -2400,14 +2474,13 @@ For more information on using the Firebase Cloud Messaging API, see the
 [Animation & Motion widgets]: /docs/development/ui/widgets/animation
 [Animations overview]: /docs/development/ui/animations
 [Animations tutorial]: /docs/development/ui/animations/tutorial
-[Apple's iOS design language]: https://developer.apple.com/design/resources/
-[arb]: {{site.github}}/google/i18n/app-resource-bundle
+[Apple's iOS design language]: {{site.apple-dev}}/design/resources/
+[arb]: {{site.github}}/google/app-resource-bundle
 [Async UI]: #async-ui
 [`cloud_firestore`]: {{site.pub}}/packages/cloud_firestore
-[composing]: /docs/resources/technical-overview#everythings-a-widget
+[composing]: /docs/resources/architectural-overview#composition
 [Cupertino widgets]: /docs/development/ui/widgets/cupertino
-[CupertinoApp]: {{site.api}}/flutter/cupertino/CupertinoApp-class.html
-[`devicePixelRatio`]: {{site.api}}/flutter/dart-ui/Window/devicePixelRatio.html
+[`devicePixelRatio`]: {{site.api}}/flutter/dart-ui/FlutterView/devicePixelRatio.html
 [developing packages and plugins]: /docs/development/packages-and-plugins/developing-packages
 [DevTools]: /docs/development/tools/devtools/overview
 [existing plugin]: {{site.pub}}/flutter
@@ -2417,7 +2490,7 @@ For more information on using the Firebase Cloud Messaging API, see the
 [`firebase_database`]: {{site.pub}}/packages/firebase_database
 [`firebase_messaging`]: {{site.pub}}/packages/firebase_messaging
 [`firebase_storage`]: {{site.pub}}/packages/firebase_storage
-[Firebase_Messaging]: {{site.github}}/flutter/plugins/tree/master/packages/firebase_messaging
+[Firebase_Messaging]: {{site.pub}}/packages/firebase_messaging
 [first party plugins]: {{site.pub}}/flutter/packages?q=firebase
 [Flutter cookbook]: /docs/cookbook
 [`flutter_facebook_login`]: {{site.pub}}/packages/flutter_facebook_login
@@ -2433,7 +2506,6 @@ For more information on using the Firebase Cloud Messaging API, see the
 [Material Components]: /docs/development/ui/widgets/material
 [Material Design]: {{site.material}}/design
 [Material Design guidelines]: {{site.material}}/design
-[MaterialApp]: {{site.api}}/flutter/material/MaterialApp-class.html
 [`Opacity` widget]: {{site.api}}/flutter/widgets/Opacity-class.html
 [optimized for all platforms]: {{site.material}}/design/platform-guidance/cross-platform-adaptation.html#cross-platform-guidelines
 [platform channels]: /docs/development/platform-integration/platform-channels
@@ -2445,11 +2517,9 @@ For more information on using the Firebase Cloud Messaging API, see the
 [`sqflite`]: {{site.pub}}/packages/sqflite
 [`TextEditingController`]: {{site.api}}/flutter/widgets/TextEditingController-class.html
 [`url_launcher`]: {{site.pub}}/packages/url_launcher
-[widget]: /docs/resources/technical-overview#everythings-a-widget
+[widget]: /docs/resources/architectural-overview#widgets
 [widget catalog]: /docs/development/ui/widgets/layout
-[WidgetsApp]: {{site.api}}/flutter/widgets/WidgetsApp-class.html
 [`Window.locale`]: {{site.api}}/flutter/dart-ui/Window/locale.html
 [Write your first Flutter app, part 1]: {{site.codelabs}}/codelabs/first-flutter-app-pt1
 [Write your first Flutter app, part 2]: {{site.codelabs}}/codelabs/first-flutter-app-pt2
 [write your own]: /docs/development/packages-and-plugins/developing-packages
-

@@ -9,13 +9,13 @@ next:
   path: /docs/cookbook/persistence/reading-writing-files
 ---
 
-If writing an app that needs to persist and query larger amounts of data on
+If you are writing an app that needs to persist and query large amounts of data on
 the local device, consider using a database instead of a local file or
 key-value store. In general, databases provide faster inserts, updates,
-and queries, compared to other local persistence solutions.
+and queries compared to other local persistence solutions.
 
 Flutter apps can make use of the SQLite databases via the
-[`sqflite`][] plugin available on pub.
+[`sqflite`][] plugin available on pub.dev.
 This recipe demonstrates the basics of using `sqflite`
 to insert, read, update, and remove data about various Dogs.
 
@@ -85,11 +85,20 @@ Before reading and writing data to the database, open a connection
 to the database. This involves two steps:
 
   1. Define the path to the database file using `getDatabasesPath()` from the
-  `sqflite` package, combined with the `path` function from the `path` package.
+  `sqflite` package, combined with the `join` function from the `path` package.
   2. Open the database with the `openDatabase()` function from `sqflite`.
+
+{{site.alert.note}}
+  In order to use the keyword `await`, the code must be placed
+  inside an `async` function. You should place all the following
+  table functions inside `void main() async {}`. 
+{{site.alert.end}}
 
 <!-- skip -->
 ```dart
+// Avoid errors caused by flutter upgrade.
+// Importing 'package:flutter/widgets.dart' is required.
+WidgetsFlutterBinding.ensureInitialized();
 // Open the database and store the reference.
 final Future<Database> database = openDatabase(
   // Set the path to the database. Note: Using the `join` function from the
@@ -120,7 +129,9 @@ SQLite database, see the [official SQLite Datatypes documentation][].
 <!-- skip -->
 ```dart
 final Future<Database> database = openDatabase(
-  // Set the path to the database.
+  // Set the path to the database. Note: Using the `join` function from the
+  // `path` package is best practice to ensure the path is correctly
+  // constructed for each platform.
   join(await getDatabasesPath(), 'doggie_database.db'),
   // When the database is first created, create a table to store dogs.
   onCreate: (db, version) {
@@ -166,7 +177,10 @@ class Dog {
     };
   }
 }
+```
 
+<!-- skip -->
+```dart
 // Define a function that inserts dogs into the database
 Future<void> insertDog(Dog dog) async {
   // Get a reference to the database.
@@ -182,7 +196,10 @@ Future<void> insertDog(Dog dog) async {
     conflictAlgorithm: ConflictAlgorithm.replace,
   );
 }
+```
 
+<!-- skip -->
+```dart
 // Create a Dog and add it to the dogs table.
 final fido = Dog(
   id: 0,
@@ -220,7 +237,10 @@ Future<List<Dog>> dogs() async {
     );
   });
 }
+```
 
+<!-- skip -->
+```dart
 // Now, use the method above to retrieve all the dogs.
 print(await dogs()); // Prints a list that include Fido.
 ```
@@ -253,7 +273,10 @@ Future<void> updateDog(Dog dog) async {
     whereArgs: [dog.id],
   );
 }
+```
 
+<!-- skip -->
+```dart
 // Update Fido's age.
 await updateDog(Dog(
   id: 0,
@@ -312,11 +335,17 @@ To run the example:
 ```dart
 import 'dart:async';
 
+import 'package:flutter/widgets.dart';
+
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 void main() async {
-  final database = openDatabase(
+  // Avoid errors caused by flutter upgrade.
+  // Importing 'package:flutter/widgets.dart' is required.
+  WidgetsFlutterBinding.ensureInitialized();
+  // Open the database and store the reference.
+  final Future<Database> database = openDatabase(
     // Set the path to the database. Note: Using the `join` function from the
     // `path` package is best practice to ensure the path is correctly
     // constructed for each platform.
@@ -447,9 +476,9 @@ class Dog {
 ```
 
 
-[`delete()`]: {{site.pub-api}}/sqflite/latest/sqlite_api/DatabaseExecutor/delete.html'
-[`insert()`]: {{site.pub-api}}/sqflite/latest/sqlite_api/DatabaseExecutor/insert.html
+[`delete()`]: {{site.pub-api}}/sqflite_common/latest/sqlite_api/DatabaseExecutor/delete.html
+[`insert()`]: {{site.pub-api}}/sqflite_common/latest/sqlite_api/DatabaseExecutor/insert.html
 [`sqflite`]: {{site.pub-pkg}}/sqflite
 [SQLite Tutorial]: http://www.sqlitetutorial.net/
 [official SQLite Datatypes documentation]: https://www.sqlite.org/datatype3.html
-[`update()`]: {{site.pub-api}}/sqflite/latest/sqlite_api/DatabaseExecutor/update.html
+[`update()`]: {{site.pub-api}}/sqflite_common/latest/sqlite_api/DatabaseExecutor/update.html

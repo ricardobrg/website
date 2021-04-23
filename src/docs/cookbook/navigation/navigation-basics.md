@@ -27,8 +27,7 @@ In Android, a route is equivalent to an Activity.
 In iOS, a route is equivalent to a ViewController.
 In Flutter, a route is just a widget.
 
-Navigate to a new route using the [`Navigator`][].
-This recipe uses the following steps:
+This recipe uses the [`Navigator`][] to navigate to a new route.
 
 The next few sections show how to navigate between two routes,
 using these steps:
@@ -55,7 +54,7 @@ class FirstRoute extends StatelessWidget {
         title: Text('First Route'),
       ),
       body: Center(
-        child: RaisedButton(
+        child: ElevatedButton(
           child: Text('Open route'),
           onPressed: () {
             // Navigate to second route when tapped.
@@ -74,7 +73,7 @@ class SecondRoute extends StatelessWidget {
         title: Text("Second Route"),
       ),
       body: Center(
-        child: RaisedButton(
+        child: ElevatedButton(
           onPressed: () {
             // Navigate back to first route when tapped.
           },
@@ -129,7 +128,7 @@ onPressed: () {
 
 ## Interactive example
 
-```run-dartpad:theme-light:mode-flutter:run-true:width-100%:height-600px:split-60:ga_id-interactive_example
+```run-dartpad:theme-light:mode-flutter:run-true:width-100%:height-600px:split-60:ga_id-interactive_example:null_safety-true
 import 'package:flutter/material.dart';
 
 void main() {
@@ -147,7 +146,7 @@ class FirstRoute extends StatelessWidget {
         title: Text('First Route'),
       ),
       body: Center(
-        child: RaisedButton(
+        child: ElevatedButton(
           child: Text('Open route'),
           onPressed: () {
             Navigator.push(
@@ -169,7 +168,7 @@ class SecondRoute extends StatelessWidget {
         title: Text("Second Route"),
       ),
       body: Center(
-        child: RaisedButton(
+        child: ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
           },

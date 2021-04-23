@@ -16,7 +16,13 @@ or perhaps you downloaded a font from [Google Fonts][].
 
 {{site.alert.note}}
   Check out the [google_fonts][] package for direct access
-  to almost 1000 open-sourced font families.
+  to over 1,000 open-sourced font families.
+{{site.alert.end}}
+
+{{site.alert.note}}
+  For another approach to using custom fonts, 
+  especially if you want to re-use one font over multiple projects, 
+  see [Export fonts from a package][].
 {{site.alert.end}}
 
 Flutter works with custom fonts and you can apply a custom
@@ -47,6 +53,15 @@ awesome_app/
     RobotoMono-Bold.ttf
 ```
 
+### Supported font formats
+
+Flutter supports the following font formats:
+
+* `.ttf`
+* `.otf`
+
+Flutter does not support `.woff` and `.woff2` fonts for all platforms.
+
 ## 2. Declare the font in the pubspec
 
 Once you've identified a font, tell Flutter where to find it.
@@ -72,9 +87,11 @@ flutter:
 The `family` determines the name of the font, which you use in the
 [`fontFamily`][] property of a [`TextStyle`][] object.
 
-The `asset` is a path to the font file, relative to the `pubspec.yaml` file.
+The `asset` is a path to the font file,
+relative to the `pubspec.yaml` file.
 These files contain the outlines for the glyphs in the font.
-When building the app, these files are included in the app's asset bundle.
+When building the app,
+these files are included in the app's asset bundle.
 
 A single font can reference many different files with different
 outline weights and styles:
@@ -95,8 +112,9 @@ outline weights and styles:
 You have two options for how to apply fonts to text: as the default font
 or only within specific widgets.
 
-To use a font as the default, set the `fontFamily` property as part of
-the app's `theme`. The value provided to `fontFamily` must match the `family`
+To use a font as the default, set the `fontFamily` property
+as part of the app's `theme`. The value provided to
+`fontFamily` must match the `family`
 name declared in the `pubspec.yaml`.
 
 <!-- skip -->
@@ -134,8 +152,9 @@ Text(
 
 If a [`TextStyle`][] object specifies a weight
 or style for which there is no exact font file,
-the engine uses one of the more generic files for the font and attempts to
-extrapolate outlines for the requested weight and style.
+the engine uses one of the more generic files
+for the font and attempts to extrapolate outlines
+for the requested weight and style.
 
 ## Complete example
 
@@ -213,6 +232,7 @@ class MyHomePage extends StatelessWidget {
 ![Custom Fonts Demo](/images/cookbook/fonts.png){:.site-mobile-screenshot}
 
 
+[Export fonts from a package]:  /docs/cookbook/design/package-fonts
 [`fontFamily`]: {{site.api}}/flutter/painting/TextStyle/fontFamily.html
 [`fontStyle`]: {{site.api}}/flutter/painting/TextStyle/fontStyle.html
 [`FontStyle`]: {{site.api}}/flutter/dart-ui/FontStyle-class.html

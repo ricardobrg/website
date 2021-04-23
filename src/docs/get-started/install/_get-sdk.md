@@ -8,13 +8,14 @@
 
 ## Get the Flutter SDK {#get-sdk}
 
- 1. Download the following installation bundle to get the latest {{site.sdk.channel}} release of the
-    Flutter SDK:
+ 1. Download the following installation bundle to get the latest
+    {{site.sdk.channel}} release of the Flutter SDK:
 
     [(loading...)](#){:.download-latest-link-{{os}}.btn.btn-primary}
 
     For other release channels, and older builds,
-    see the [SDK archive][] page.
+    see the [SDK releases][] page.
+
  1. Extract the file in the desired location, for example:
 
     {% comment %}
@@ -31,39 +32,17 @@
     $ {{unzip}} ~/Downloads/flutter_{{os}}_vX.X.X-{{site.sdk.channel}}{{file_ext}}
     ```
     
-     If you don't want to install a fixed version of the installation bundle, 
-     you can skip steps 1 and 2. 
-     Instead, get the source code from the [Flutter repo][] on GitHub,
-     and change branches or tags as needed. For example:
-    
-    ```terminal
-    $ git clone https://github.com/flutter/flutter.git -b stable
-    ```
-    
  1. Add the `flutter` tool to your path:
 
     ```terminal
     $ export PATH="$PATH:`pwd`/flutter/bin"
     ```
 
-    This command sets your `PATH` variable for the _current_ terminal window only.
+    This command sets your `PATH` variable for the
+    _current_ terminal window only.
     To permanently add Flutter to your path, see
     [Update your path][].
-
- 1. Optionally, pre-download development binaries:
-
-    The `flutter` tool downloads platform-specific development binaries as
-    needed. For scenarios where pre-downloading these artifacts is preferable
-    (for example, in hermetic build environments,
-    or with intermittent network availability), iOS
-    and Android binaries can be downloaded ahead of time by running:
-
-    ```terminal
-    $ flutter precache
-    ```
-
-    For additional download options, see `flutter help precache`.
-
+    
 You are now ready to run Flutter commands!
 
 {{site.alert.note}}
@@ -102,9 +81,39 @@ process.
 Once you have installed any missing dependencies, run the `flutter doctor`
 command again to verify that you’ve set everything up correctly.
 
+### Downloading straight from GitHub instead of using an archive
+
+_This is only suggested for advanced use cases._
+
+You can also use git directly instead of downloading the prepared archive. For example,
+to download the stable branch:
+    
+```terminal
+$ git clone https://github.com/flutter/flutter.git -b stable
+```
+
+[Update your path][], and run `flutter doctor`. That will let you know if there are
+other dependencies you need to install to use Flutter (e.g. the Android SDK).
+
+If you did not use the archive, Flutter will download necessary development binaries as they
+are needed (if you used the archive, they are included in the download). You may wish to
+pre-download these development binaries (for example, you may wish to do this when setting
+up hermetic build environments, or if you only have intermittent network availability). To
+do so, run the following command:
+
+```terminal
+$ flutter precache
+```
+
+For additional download options, see `flutter help precache`.
+
+
 {% include_relative _analytics.md %}
 
 [Flutter repo]: {{site.github}}/flutter/flutter
-[SDK archive]: /docs/development/tools/sdk/archive
+[Installing snapd]: https://snapcraft.io/docs/installing-snapd
+[SDK releases]: /docs/development/tools/sdk/releases
+[Snap Store]: https://snapcraft.io/store
+[snapd]: https://snapcraft.io/flutter
 [Update your path]: #update-your-path
 [Upgrading Flutter]: /docs/development/tools/sdk/upgrading

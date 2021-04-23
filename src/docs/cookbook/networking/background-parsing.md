@@ -5,8 +5,8 @@ prev:
   title: Make authenticated requests
   path: /docs/cookbook/networking/authenticated-requests
 next:
-  title: Work with WebSockets
-  path: /docs/cookbook/networking/web-sockets
+  title: Send data to the internet
+  path: /docs/cookbook/networking/send-data
 ---
 
 By default, Dart apps do all of their work on a single thread.
@@ -43,14 +43,15 @@ dependencies:
 
 ## 2. Make a network request
 
-In this example, fetch a JSON large document that contains a list of
-5000 photo objects from the [JSONPlaceholder REST API][],
+This example covers how to fetch a large JSON document
+that contains a list of 5000 photo objects from the
+[JSONPlaceholder REST API][],
 using the [`http.get()`][] method.
 
 <!-- skip -->
 ```dart
 Future<http.Response> fetchPhotos(http.Client client) async {
-  return client.get('https://jsonplaceholder.typicode.com/photos');
+  return client.get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
 }
 ```
 
@@ -64,7 +65,7 @@ Future<http.Response> fetchPhotos(http.Client client) async {
 Next, following the guidance from the
 [Fetch data from the internet][] recipe,
 convert the `http.Response` into a list of Dart objects.
-This makes the data easier to work with in the future.
+This makes the data easier to work with.
 
 ### Create a `Photo` class
 
@@ -105,14 +106,14 @@ Now, use the following instructions to update the
 ```dart
 // A function that converts a response body into a List<Photo>.
 List<Photo> parsePhotos(String responseBody) {
-  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
   return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
 }
 
 Future<List<Photo>> fetchPhotos(http.Client client) async {
-  final response =
-      await client.get('https://jsonplaceholder.typicode.com/photos');
+  final response = await client
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
 
   return parsePhotos(response.body);
 }
@@ -122,7 +123,7 @@ Future<List<Photo>> fetchPhotos(http.Client client) async {
 
 If you run the `fetchPhotos()` function on a slower device,
 you might notice the app freezes for a brief moment as it parses and
-converts the JSON. This is jank, and you want to be rid of it.
+converts the JSON. This is jank, and you want to get rid of it.
 
 You can remove the jank by moving the parsing and conversion
 to a background isolate using the [`compute()`][]
@@ -133,8 +134,8 @@ run the `parsePhotos()` function in the background.
 <!-- skip -->
 ```dart
 Future<List<Photo>> fetchPhotos(http.Client client) async {
-  final response =
-      await client.get('https://jsonplaceholder.typicode.com/photos');
+  final response = await client
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
 
   // Use the compute function to run parsePhotos in a separate isolate.
   return compute(parsePhotos, response.body);
@@ -147,8 +148,8 @@ Isolates communicate by passing messages back and forth. These messages can
 be primitive values, such as `null`, `num`, `bool`, `double`, or `String`, or
 simple objects such as the `List<Photo>` in this example.
 
-You might experience errors if you try to pass more complex objects, such as
-a `Future` or `http.Response` between isolates.
+You might experience errors if you try to pass more complex objects,
+such as a `Future` or `http.Response` between isolates.
 
 ## Complete example
 
@@ -161,8 +162,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<Photo>> fetchPhotos(http.Client client) async {
-  final response =
-      await client.get('https://jsonplaceholder.typicode.com/photos');
+  final response = await client
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
 
   // Use the compute function to run parsePhotos in a separate isolate.
   return compute(parsePhotos, response.body);

@@ -1,5 +1,6 @@
 ---
 title: Differentiate between ephemeral state and app state
+description: How to tell the difference between ephemeral and app state.
 prev:
   title: Start thinking declaratively
   path: /docs/development/data-and-backend/state-mgmt/declarative
@@ -119,7 +120,7 @@ it might need to be moved to app state.
 
 For that reason, take the following diagram with a large grain of salt:
 
-{% asset development/data-and-backend/state-mgmt/ephemeral-vs-app-state alt="A flow chart. Start with 'Data'. 'Who needs it?'. Three options: 'Most widgets', 'Some widgets' and 'Single widget'. The first two options both lead to 'App state'. The 'Single widget' option leads to 'Ephemeral state'." %}
+{% asset development/data-and-backend/state-mgmt/ephemeral-vs-app-state width="100%" alt="A flow chart. Start with 'Data'. 'Who needs it?'. Three options: 'Most widgets', 'Some widgets' and 'Single widget'. The first two options both lead to 'App state'. The 'Single widget' option leads to 'Ephemeral state'." %}
 
 {% comment %}
 Source drawing for the png above: : https://docs.google.com/drawings/d/1p5Bvuagin9DZH8bNrpGfpQQvKwLartYhIvD0WKGa64k/edit?usp=sharing
@@ -128,7 +129,7 @@ Source drawing for the png above: : https://docs.google.com/drawings/d/1p5Bvuagi
 When asked about React's setState versus Redux's store, the author of Redux,
 Dan Abramov, replied:
 
-> "The rule of thumb is: [Do whatever is less awkward]."
+> "The rule of thumb is: [Do whatever is less awkward][]."
 
 In summary, there are two conceptual types of state in any Flutter app.
 Ephemeral state can be implemented using `State` and `setState()`,
@@ -136,5 +137,5 @@ and is often local to a single widget. The rest is your app state.
 Both types have their place in any Flutter app, and the split between
 the two depends on your own preference and the complexity of the app.
 
-[`PageView`]: {{site.api}}/flutter/widgets/PageView-class.html
 [Do whatever is less awkward]: {{site.github}}/reduxjs/redux/issues/1287#issuecomment-175351978
+[`PageView`]: {{site.api}}/flutter/widgets/PageView-class.html

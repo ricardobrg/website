@@ -1,5 +1,6 @@
 ---
 title: Taps, drags, and other gestures
+description: How gestures, such as taps and drags, work in Flutter.
 ---
 
 This document explains how to listen for, and respond to,
@@ -143,7 +144,7 @@ To listen to gestures from the widgets layer, use a
 
 If you're using Material Components,
 many of those widgets already respond to taps or gestures.
-For example, [`IconButton`][] and [`FlatButton`][]
+For example, [`IconButton`][] and [`TextButton`][]
 respond to presses (taps), and [`ListView`][]
 responds to swipes to trigger scrolling.
 If you are not using those widgets, but you want the
@@ -188,7 +189,7 @@ can be treated as a drag and the user won't need to wait for
 further gesture disambiguation.
 
 
-[`FlatButton`]: {{site.api}}/flutter/material/FlatButton-class.html
+[`TextButton`]: {{site.api}}/flutter/material/TextButton-class.html
 [`GestureDetector`]: {{site.api}}/flutter/widgets/GestureDetector-class.html
 [`IconButton`]: {{site.api}}/flutter/material/IconButton-class.html
 [`InkWell`]: {{site.api}}/flutter/material/InkWell-class.html

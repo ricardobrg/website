@@ -1,13 +1,37 @@
-- name: Realtor.com
+- name: BMW
   featured: true
   description: >
-    With listings updated in real time, Realtor.com’s award-winning app helps
-    users find the home of their dreams.
-  logo_src: showcase/cards/realtor-logo.png
-  app_store_link: https://apps.apple.com/us/app/realtor-com-real-estate-search/id336698281
-  play_store_link: https://play.google.com/store/apps/details?id=com.move.realtor
+    Flutter enabled BMW to build the My BMW app for iOS and Android from a 
+    single codebase. The app is fully developed in-house by BMW using Flutter.
+  logo_src: showcase/cards/bmw-logo.png
+  learn_more_cta: Learn more
+  learn_more_link: https://www.press.bmwgroup.com/global/article/detail/T0328610EN/the-my-bmw-app-new-features-and-tech-insights-for-march-2021
+  app_store_link: https://apps.apple.com/gb/app/my-bmw/id1519034860
+  play_store_link: https://play.google.com/store/apps/details?id=de.bmw.connected.mobile20.row
   logo_has_name: true
-  card_image: showcase/cards/realtor-top@.jpg
+  card_image: showcase/cards/bmw-top@.jpg
+
+- name: Nubank
+  featured: true
+  description: >
+    Flutter helped Nubank in its mission to end the complexity of traditional
+    banks and put financial control back in the hands of the user.
+  logo_src: showcase/cards/nubank-logo.png
+  video_id: vnj2i6RNo3g
+  learn_more_cta: Learn more
+  learn_more_link: https://medium.com/building-nubank/https-medium-com-freire-why-nubank-chose-flutter-61b80b568772
+  app_store_link: https://apps.apple.com/us/app/nubank/id814456780
+  play_store_link: https://play.google.com/store/apps/details?id=com.nu.production&hl=en_US
+  quote_testimonial: true
+  quote: >
+    Flutter had everything we needed out of the box including great documentation,
+    community support, and tooling.
+  quote_writer: Igor Borges, Software Engineer, Nubank
+  video_frame_image: showcase/video-frames/nubank@.png
+  logo_has_name: true
+  card_image: showcase/cards/nubank-top@.jpg
+  # TODO need a "showcase/cards/nubank-top-1200.jpg", then remove this flag
+  no_1200_image: true
 
 - name: Tencent
   featured: true
@@ -26,16 +50,15 @@
   card_image: showcase/cards/tencent-top@.jpg
   card_video: DVGIBU109nI
 
-- name: The New York Times
+- name: Google Assistant
   featured: true
   description: >
-    Flutter helps bring the popular Ken Ken puzzle to life on Android, iOS,
-    Mac, Windows, and the web.
-  logo_src: showcase/cards/tnyt-logo.png
-  logo_has_name: true
-  learn_more_cta: Try it now
-  learn_more_link: https://www.nytimes.com/games/prototype/kenken#/
-  card_image: showcase/cards/tnyt-top@.jpg
+    Flutter helps power an ever-growing number of Google Assistant apps.
+  logo_src: showcase/cards/g_assistant-logo.png
+  logo_has_name: false
+  learn_more_cta: Learn more
+  learn_more_link: https://developers.googleblog.com/2019/05/Flutter-io19.html
+  card_image: showcase/cards/g_assistant-top@.png
 
 - name: Square
   featured: true
@@ -48,15 +71,20 @@
   learn_more_link: https://squareup.com/us/en/flutter
   card_image: showcase/cards/square-top@.jpg
 
-- name: Google Assistant
-  featured: true
+
+# --- not featured ---
+
+- name: Ebay
   description: >
-    Flutter helps power an ever-growing number of Google Assistant apps.
-  logo_src: showcase/cards/g_assistant-logo.png
-  logo_has_name: false
+    The eBay Motors app is a powerful tool for browsing,
+    buying, and selling vehicles directly from consumers’ phones.
+  logo_src: showcase/cards/ebay-logo.png
   learn_more_cta: Learn more
-  learn_more_link: https://developers.googleblog.com/2019/05/Flutter-io19.html
-  card_image: showcase/cards/g_assistant-top@.png
+  learn_more_link: https://pages.ebay.com/motors/motorsapp
+  app_store_link: https://apps.apple.com/us/app/ebay-motors/id1456156090
+  play_store_link: https://play.google.com/store/apps/details?id=com.ebay.motorsapp
+  logo_has_name: true
+  card_image: showcase/cards/ebay-top@.jpg
 
 - name: Reflectly
   description: >
@@ -82,6 +110,8 @@
     The Google Ads app helps users manage, optimize and track ad campaigns all
     from the convenience of an android device.
   logo_src: showcase/cards/g_ads-logo.png
+  learn_more_cta: Learn more
+  learn_more_link: https://ads.google.com/
   app_store_link: https://itunes.apple.com/us/app/google-ads/id1037457231?mt=8
   play_store_link: https://play.google.com/store/apps/details?id=com.google.android.apps.adwords
   logo_has_name: false
@@ -95,6 +125,8 @@
   video_id: kfd-oLypqFI
   learn_more_cta: Learn more
   learn_more_link: https://insighttimer.com/
+  app_store_link: https://apps.apple.com/br/app/insight-timer-medita%C3%A7%C3%A3o/id337472899
+  play_store_link: https://play.google.com/store/apps/details?id=com.spotlightsix.zentimerlite2
   logo_has_name: false
   card_image: showcase/cards/insight_timer-top@.jpg
 
@@ -102,6 +134,8 @@
   description: >
     Google's Stadia app is built using Flutter for both iOS and Android.
   logo_src: showcase/cards/stadia-logo.png
+  learn_more_cta: Learn more
+  learn_more_link: https://stadia.google.com/
   app_store_link: https://apps.apple.com/us/app/google-stadia/id1471900213
   play_store_link: https://play.google.com/store/apps/details?id=com.google.stadia.android&hl=en_US
   logo_has_name: true
@@ -122,6 +156,8 @@
     innovation.
   logo_src: showcase/cards/abbey_road-logo.png
   video_id: _ACWeGGBP4E
+  learn_more_cta: Learn more
+  learn_more_link: https://www.miquido.com/portfolio/topline-abbey-road-studios/
   app_store_link: https://itunes.apple.com/us/app/topline/id1270125833?mt=8
   play_store_link: https://play.google.com/store/apps/details?id=com.abbeyroadandroid&hl=en_US&e=-EnableAppDetailsPageRedesign
   video_frame_image: showcase/video-frames/abbey_road@.jpg
@@ -139,8 +175,9 @@
     life.
   logo_src: showcase/cards/alibaba-logo.png
   video_id: jtYk3gWRSw0
+  learn_more_cta: Learn more
+  learn_more_link: https://www.youtube.com/watch?v=jtYk3gWRSw0
   app_store_link: https://itunes.apple.com/cn/app/%E9%97%B2%E9%B1%BC-%E6%8C%82%E9%97%B2%E9%B1%BC-%E9%97%B2%E7%BD%AE%E8%83%BD%E6%8D%A2%E9%92%B1/id510909506?mt=8
-  play_store_link: https://play.google.com/store/apps/details?id=com.taobao.idlefish&e=-EnableAppDetailsPageRedesign
   video_frame_image: showcase/video-frames/alibaba@.jpg
   quote_testimonial: true
   quote: >
@@ -165,8 +202,10 @@
     other apps used by hundreds of millions of users have been developed with
     Flutter.
   logo_src: showcase/cards/byte_dance-logo.png
+  learn_more_cta: Learn more
+  learn_more_link: https://www.bytedance.com/en/
   app_store_link: https://apps.apple.com/cn/app/%E4%BB%8A%E6%97%A5%E5%A4%B4%E6%9D%A1/id529092160?l=en
-  play_store_link: https://play.google.com/store/apps/details?id=com.ss.android.article.master&hl=en_US
+  play_store_link: https://play.google.com/store/apps/details?id=com.ss.android.article.news
   logo_has_name: true
   card_image: showcase/cards/byte_dance-top@.jpg
 
@@ -177,7 +216,8 @@
   logo_src: showcase/cards/dream11-logo.png
   video_id: lCeRZhoqEP8
   learn_more_cta: Learn more
-  learn_more_link: https://www.powerpredictorapp.com/
+  learn_more_link: https://www.dream11.com/download-app
+  app_store_link: https://apps.apple.com/in/app/dream11-fantasy-sports/id1077286074
   video_frame_image: showcase/video-frames/dream11@.jpg
   quote_testimonial: true
   quote: >
@@ -192,6 +232,9 @@
     Groupon uses Flutter to help hundreds of thousands of merchants track campaign performance,
     manage customer satisfaction, and get efficient support.
   logo_src: showcase/cards/groupon-logo.png
+  learn_more_cta: Learn more
+  learn_more_link: https://www.groupon.com/
+  app_store_link: https://apps.apple.com/us/app/groupon/id352683833
   play_store_link: https://play.google.com/store/apps/details?id=com.groupon.redemption
   logo_has_name: true
   card_image: showcase/cards/groupon-top@.png
@@ -216,16 +259,6 @@
   logo_has_name: false
   card_image: showcase/cards/hamilton-top@.jpg
 
-- name: Nubank
-  description: >
-    Flutter helped Nubank in its mission to end the complexity of traditional
-    banks and put financial control back in the hands of the user.
-  logo_src: showcase/cards/nubank-logo.png
-  learn_more_cta: Learn more
-  learn_more_link: https://medium.com/building-nubank/https-medium-com-freire-why-nubank-chose-flutter-61b80b568772
-  logo_has_name: true
-  card_image: showcase/cards/nubank-top@.jpg
-
 - name: Philips Hue
   description: >
     Flutter brought intuitive controls to Philips Hue apps, allowing users to set the mood and sync their smart lights
@@ -233,6 +266,8 @@
   logo_src: showcase/cards/philips_hue-logo.png
   logo_has_name: true
   learn_more_dropdown: true
+  app_store_link: https://apps.apple.com/app/philips-hue-bluetooth/id1456604186
+  play_store_link: https://play.google.com/store/apps/details?id=com.signify.hue.blue
   learn_more_links:
     - link_item:
       link: https://www2.meethue.com/en-us/entertainment/sync-with-tv#get-the-app
@@ -248,6 +283,10 @@
     interaction with unique blockchain-based features.
   logo_src: showcase/cards/emaar-logo.png
   logo_has_name: true
+  learn_more_cta: Learn more
+  learn_more_link: https://www.emaar.com/
+  app_store_link: https://apps.apple.com/in/app/emaar-one/id1445056033
+  play_store_link:  https://play.google.com/store/apps/details?id=com.emaartechnologies.emaarone&hl=en&gl=US
   card_image: showcase/cards/emaar-top@.jpg
 
 - name: Green Tea
@@ -255,15 +294,30 @@
     An internal customer management app used widely by Google sales that
     provides rich visualizations for tracking sales targets.
   logo_src: showcase/cards/green_tea-logo.png
+  learn_more_cta: Learn more
   logo_has_name: true
+  learn_more_link: https://www.flutterx.com/google-greentea
   card_image: showcase/cards/green_tea-top@.jpg
 
-- name: Ebay
+- name: MGM Resorts
   description: >
-    The eBay Motors app is a powerful tool for browsing,
-    buying, and selling vehicles directly from consumers’ phones.
-  logo_src: showcase/cards/ebay-logo.png
-  app_store_link: https://apps.apple.com/us/app/ebay-motors/id1456156090
-  play_store_link: https://play.google.com/store/apps/details?id=com.ebay.motorsapp
+    MGM Resorts apps (iOS & Android) are built on Flutter.
+    Recent releases include a contactless digital check in experience as well
+    as an in lobby Room Key printing solution.
+  logo_src: showcase/cards/mgm-logo.svg
+  learn_more_cta: Learn more
+  learn_more_link: https://www2.mgmresorts.com/app
+  app_store_link: https://apps.apple.com/us/app/mgm-resorts-international/id366518979
+  play_store_link: https://play.google.com/store/apps/details?id=com.mgmresorts.mgmresorts&hl=en_US
   logo_has_name: true
-  card_image: showcase/cards/ebay-top@.jpg
+  card_image: showcase/cards/mgm-top@.png
+
+- name: The New York Times
+  description: >
+    Flutter helps bring the popular Ken Ken puzzle to life on Android, iOS,
+    Mac, Windows, and the web.
+  logo_src: showcase/cards/tnyt-logo.png
+  logo_has_name: true
+  learn_more_cta: Learn More
+  learn_more_link: https://youtu.be/LoLqSbV1ELU?t=3290
+  card_image: showcase/cards/tnyt-top@.jpg

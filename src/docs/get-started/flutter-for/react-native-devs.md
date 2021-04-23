@@ -267,7 +267,7 @@ class Example {
     const url = 'https://httpbin.org/ip';
     const response = await fetch(url);
     const json = await response.json();
-    const data = await json.origin;
+    const data = json.origin;
     return data;
   }
 }
@@ -554,10 +554,11 @@ In Flutter, define a class to create a custom widget and then reuse the
 widget. You can also define and call a function that returns a
 reusable widget as shown in the `build` function in the following example.
 
+<!-- skip -->
 ```dart
 // Flutter
 class CustomCard extends StatelessWidget {
-  CustomCard({@required this.index, @required 
+  CustomCard({@required this.index, @required
      this.onPress});
 
   final index;
@@ -569,7 +570,7 @@ class CustomCard extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Text('Card $index'),
-          FlatButton(
+          TextButton(
             child: const Text('Press'),
             onPressed: this.onPress,
           ),
@@ -748,7 +749,7 @@ dependencies:
 
 <!-- skip -->
 ```dart
-import 'package:flutter/cupertino.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 ```
 
 For more information, see [Using Packages][] and
@@ -795,7 +796,7 @@ style, touch handling, and accessibility controls.
 
 In Flutter, you can use the core layout widgets in the `Widgets`
 library, such as [`Container`][], [`Column`][],
-[`Row`][], and [`Center`][].  
+[`Row`][], and [`Center`][].
 For more information, see the [Layout Widgets][] catalog.
 
 ### What is the equivalent of `FlatList` or `SectionList`?
@@ -932,7 +933,7 @@ In Flutter, the layout is primarily defined by widgets
 specifically designed to provide layout,
 combined with control widgets and their style properties.
 
-For example, the [`Column`]] and [`Row`][] widgets
+For example, the [`Column`][] and [`Row`][] widgets
 take an array of children and align them
 vertically and horizontally respectively.
 A [`Container`][] widget takes a combination of
@@ -1083,6 +1084,8 @@ make sure to set `uses-material-design: true` in
 the project's `pubspec.yaml` file.
 This ensures that the `MaterialIcons` font,
 which displays the icons, is included in your app.
+In general, if you intend to use the Material library,
+you should include this line.
 
 ```yaml
 name: my_awesome_application
@@ -1316,7 +1319,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ),
             Padding(
               padding: EdgeInsets.only(top: 70.0),
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: toggleBlinkState,
                 child: (toggleState
                   ?( Text('Blink'))
@@ -1477,7 +1480,7 @@ class CustomCard extends StatelessWidget {
     child: Column(
       children: <Widget>[
         Text('Card $index'),
-        FlatButton(
+        TextButton(
           child: const Text('Press'),
           onPressed: this.onPress,
         ),
@@ -1799,7 +1802,7 @@ such as `Drawers`, `AppBars`, and `SnackBars`.
 The `Drawer` widget is a Material Design panel that slides
 in horizontally from the edge of a `Scaffold` to show navigation
 links in an application. You can
-provide a [`RaisedButton`][], a [`Text`][] widget,
+provide a [`ElevatedButton`][], a [`Text`][] widget,
 or a list of items to display as the child to the `Drawer` widget.
 In the following example, the [`ListTile`][]
 widget provides the navigation on tap.
@@ -2056,7 +2059,7 @@ TextField(
     hintText: 'Type something', labelText: 'Text Field '
   ),
 ),
-RaisedButton(
+ElevatedButton(
   child: Text('Submit'),
   onPressed: () {
     showDialog(
@@ -2111,7 +2114,7 @@ Form(
           labelText: 'Email',
         ),
       ),
-      RaisedButton(
+      ElevatedButton(
         onPressed: _submit,
         child: Text('Login'),
       ),
@@ -2407,11 +2410,11 @@ and common widget properties.
 <div class="table-wrapper" markdown="1">
 | React Native Component                                                                    | Flutter Widget                                                                                             | Description                                                                                                                            |
 | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| [`Button`](https://facebook.github.io/react-native/docs/button.html)                        | [`RaisedButton`][]                           | A basic raised button.                                                                              |
+| [`Button`](https://facebook.github.io/react-native/docs/button.html)                        | [`ElevatedButton`][]                           | A basic raised button.                                                                              |
 |                                                                                           |  onPressed [required]                                                                                        | The callback when the button is tapped or otherwise activated.                                                          |
 |                                                                                           | Child                                                                              | The button's label.                                                                                                      |
 |                                                                                           |                                                                                                            |                                                                                                                                        |
-| [`Button`](https://facebook.github.io/react-native/docs/button.html)                        | [`FlatButton`][]                               | A basic flat button.                                                                                                         |
+| [`Button`](https://facebook.github.io/react-native/docs/button.html)                        | [`TextButton`][]                               | A basic flat button.                                                                                                         |
 |                                                                                           |  onPressed [required]                                                                                        | The callback when the button is tapped or otherwise activated.                                                            |
 |                                                                                           | Child                                                                              | The button's label.                                                                                                      |
 |                                                                                           |                                                                                                            |                                                                                                                                        |
@@ -2425,7 +2428,7 @@ and common widget properties.
 ||itemBuilder [required] |[[`IndexedWidgetBuilder`][]] helps in building the children on demand. This callback is called only with indices greater than or equal to zero and less than the itemCount.
 ||itemCount |[ int ] improves the ability of the `ListView` to estimate the maximum scroll extent.
 |                                                                                           |                                                                                                            |                                                                                                                                        |
-| [`Image`][]                         | [`Image`](https://facebook.github.io/react-native/docs/image.html)                                           | A widget that displays an image.                                                                                                       |
+| [`Image`](https://facebook.github.io/react-native/docs/image.html)                         | [`Image`][]                                           | A widget that displays an image.                                                                                                       |
 |                                                                                           |  image [required]                                                                                          | The image to display.                                                                                                                  |
 |                                                                                           | Image. asset                                                                                                | Several constructors are provided for the various ways that an image can be specified.                                                 |
 |                                                                                           | width, height, color, alignment                                                                            | The style and layout for the image.                                                                                                         |
@@ -2438,7 +2441,7 @@ and common widget properties.
 |                                                                                           | strokeWidth                                                                                                | The width of the line used to draw the circle.                                                                                         |
 |                                                                                           | backgroundColor                                                                                            | The progress indicator's background color. The current theme's `ThemeData.backgroundColor` by default.                                   |
 |                                                                                           |                                                                                                            |                                                                                                                                        |
-|  [`ActivityIndicator`](https://facebook.github.io/react-native/docs/activityindicator.html) | [`LinearProgressIndicator`][]     | A widget that shows progress along a circle.                                                                                           |
+|  [`ActivityIndicator`](https://facebook.github.io/react-native/docs/activityindicator.html) | [`LinearProgressIndicator`][]     | A widget that shows progress along a line.                                                                                           |
 |                                                                                           | value                                                                                                      | The value of this progress indicator.                                                                                                   |
 |                                                                                           |                                                                                                            |                                                                                                                                        |
 | [`RefreshControl`](https://facebook.github.io/react-native/docs/refreshcontrol.html)        | [`RefreshIndicator`][]                   | A widget that supports the Material "swipe to refresh" idiom.                                                                          |
@@ -2460,7 +2463,7 @@ and common widget properties.
 |                                                                                           | onTap                                                                                                      | A callback when a tap occurs.                                                                                                               |
 |                                                                                           | onDoubleTap                                                                                                | A callback when a tap occurs at the same location twice in quick succession.
 |||
-| [`TextInput`][]                | [`TextInput`](https://facebook.github.io/react-native/docs/textinput.html)                                   | The interface to the system's text input control.                                                                                           |
+| [`TextInput`](https://facebook.github.io/react-native/docs/textinput.html)                | [`TextInput`][]                                   | The interface to the system's text input control.                                                                                           |
 |                                                                                           | controller                                                                                                 | [ [`TextEditingController`][] ] used to access and modify text.
 |||
 | [`Text`](https://facebook.github.io/react-native/docs/text.html)                          | [`Text`][]                                            | The Text widget that displays a string of text with a single style.                                                                                                                                                                           |
@@ -2488,7 +2491,7 @@ and common widget properties.
 [`Axis`]: {{site.api}}/flutter/painting/Axis-class.html
 [`BuildContext`]: {{site.api}}/flutter/widgets/BuildContext-class.html
 [`Center`]: {{site.api}}/flutter/widgets/Center-class.html
-[color palette]: {{site.material}}/guidelines/style/color.html
+[color palette]: {{site.material}}/design/color
 [colors]: {{site.api}}/flutter/material/Colors-class.html
 [`Colors`]: {{site.api}}/flutter/material/Colors-class.html
 [`Column`]: {{site.api}}/flutter/widgets/Column-class.html
@@ -2513,13 +2516,14 @@ and common widget properties.
 [`Dismissible`]: {{site.api}}/flutter/widgets/Dismissible-class.html
 [`FadeTransition`]: {{site.api}}/flutter/widgets/FadeTransition-class.html
 [Flutter packages]: {{site.pub}}/flutter/
-[Flutter Technical Overview]: /docs/resources/technical-overview
+[Flutter Architectural Overview]: /docs/resources/architectural-overview
 [Flutter Basic Widgets]: /docs/development/ui/widgets/basics
+[Flutter Technical Overview]: /docs/resources/architectural-overview
 [Flutter Widget Catalog]: /docs/development/ui/widgets
 [Flutter Widget Index]: /docs/reference/widgets
 [`FlutterLogo`]: {{site.api}}/flutter/material/FlutterLogo-class.html
 [`Form`]: {{site.api}}/flutter/widgets/Form-class.html
-[`FlatButton`]: {{site.api}}/flutter/material/FlatButton-class.html
+[`TextButton`]: {{site.api}}/flutter/material/TextButton-class.html
 [functions]: {{site.dart-site}}/guides/language/language-tour#functions
 [`Future`]: {{site.dart-site}}/tutorials/language/futures
 [`GestureDetector`]: {{site.api}}/flutter/widgets/GestureDetector-class.html
@@ -2532,14 +2536,14 @@ and common widget properties.
 [`LinearProgressIndicator`]: {{site.api}}/flutter/material/LinearProgressIndicator-class.html
 [`ListTile`]: {{site.api}}/flutter/material/ListTile-class.html
 [`ListView`]: {{site.api}}/flutter/widgets/ListView-class.html
-[`ListView.builder`]: {{site.api}}/flutter/widgets/ListView/ListView.builder.html)
+[`ListView.builder`]: {{site.api}}/flutter/widgets/ListView/ListView.builder.html
 [Material Design]: {{site.material}}/design
 [Material icons]: {{site.api}}/flutter/material/Icons-class.html
 [`MaterialApp`]: {{site.api}}/flutter/material/MaterialApp-class.html
 [`MaterialPageRoute`]: {{site.api}}/flutter/material/MaterialPageRoute-class.html
 [`ModalRoute`]: {{site.api}}/flutter/widgets/ModalRoute-class.html
 [`Navigator`]: {{site.api}}/flutter/widgets/Navigator-class.html
-[`Navigator.of()`]: ({{site.api}}/flutter/widgets/Navigator/of.html
+[`Navigator.of()`]: {{site.api}}/flutter/widgets/Navigator/of.html
 [`Navigator.pop`]: {{site.api}}/flutter/widgets/Navigator/pop.html
 [`Navigator.push`]: {{site.api}}/flutter/widgets/Navigator/push.html
 [`onSaved`]: {{site.api}}/flutter/widgets/FormField/onSaved.html
@@ -2548,7 +2552,7 @@ and common widget properties.
 [`PanResponder`]: https://facebook.github.io/react-native/docs/panresponder.html
 [pub.dev]: {{site.pub}}
 [`Radio`]: {{site.api}}/flutter/material/Radio-class.html
-[`RaisedButton`]: {{site.api}}/flutter/material/RaisedButton-class.html
+[`ElevatedButton`]: {{site.api}}/flutter/material/ElevatedButton-class.html
 [`RefreshIndicator`]: {{site.api}}/flutter/material/RefreshIndicator-class.html
 [`Route`]: {{site.api}}/flutter/widgets/Route-class.html
 [`Row`]: {{site.api}}/flutter/widgets/Row-class.html
@@ -2583,4 +2587,3 @@ and common widget properties.
 [variables]: {{site.dart-site}}/guides/language/language-tour#variables
 [`WidgetBuilder`]: {{site.api}}/flutter/widgets/WidgetBuilder.html
 [Write Your First Flutter App, Part 1]: {{site.codelabs}}/codelabs/first-flutter-app-pt1
-

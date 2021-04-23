@@ -89,14 +89,13 @@ class MyHomepage extends StatelessWidget {
 class NonRebuilding_Good extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return TextButton(
       onPressed: () => _onPressed(context),
       child: Text("Add"),
     );
   }
 
   void _onPressed(BuildContext context) {
-    var item = Item('Dash');
     // #docregion nonRebuilding
     Provider.of<CartModel>(context, listen: false).removeAll();
     // #enddocregion nonRebuilding

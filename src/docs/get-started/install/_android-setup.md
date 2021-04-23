@@ -3,7 +3,7 @@
 {{site.alert.note}}
   Flutter relies on a full installation of Android Studio to supply
   its Android platform dependencies. However, you can write your
-  Flutter apps in a number of editors; a later step will discuss that.
+  Flutter apps in a number of editors; a later step discusses that.
 {{site.alert.end}}
 
 ### Install Android Studio
@@ -13,13 +13,11 @@
     This installs the latest Android SDK, Android SDK Command-line Tools,
     and Android SDK Build-Tools, which are required by Flutter
     when developing for Android.
-{{site.alert.note}}
-We're updating the flutter tool to use either the Platform-Tools (now obsolete), or the new Command-Line tool if it is available. 
-{{site.alert.end}}
+
 ### Set up your Android device
 
 To prepare to run and test your Flutter app on an Android device,
-you'll need an Android device running Android 4.1 (API level 16) or higher.
+you need an Android device running Android 4.1 (API level 16) or higher.
 
  1. Enable **Developer options** and **USB debugging** on your device.
     Detailed instructions are available in the
@@ -32,7 +30,7 @@ you'll need an Android device running Android 4.1 (API level 16) or higher.
     Flutter recognizes your connected Android device.  By default,
     Flutter uses the version of the Android SDK where your `adb`
     tool is based. If you want Flutter to use a different installation
-    of the Android SDK, you must set the `ANDROID_HOME` environment
+    of the Android SDK, you must set the `ANDROID_SDK_ROOT` environment
     variable to that installation directory.
 
 ### Set up the Android emulator
@@ -43,9 +41,14 @@ follow these steps:
  1. Enable
     [VM acceleration]({{site.android-dev}}/studio/run/emulator-acceleration)
     on your machine.
- 1. Launch **Android Studio > Tools > Android > AVD Manager** and select
-    **Create Virtual Device**. (The **Android** submenu is only present
+ 1. Launch **Android Studio**, click the **AVD Manager**
+    icon, and select **Create Virtual Device...**
+    * In older versions of Android Studio, you should instead
+    launch **Android Studio > Tools > Android > AVD Manager** and select
+    **Create Virtual Device...**. (The **Android** submenu is only present
     when inside an Android project.)
+    * If you do not have a project open, you can choose 
+    **Configure > AVD Manager** and select **Create Virtual Device...**
  1. Choose a device definition and select **Next**.
  1. Select one or more system images for the Android versions you want
     to emulate, and select **Next**.

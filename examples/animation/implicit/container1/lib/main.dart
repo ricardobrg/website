@@ -29,6 +29,7 @@ class _AnimatedContainerDemoState extends State<AnimatedContainerDemo> {
 
   @override
   initState() {
+    super.initState();
     color = randomColor();
     borderRadius = randomBorderRadius();
     margin = randomMargin();
@@ -51,12 +52,8 @@ class _AnimatedContainerDemoState extends State<AnimatedContainerDemo> {
                 ),
               ),
             ),
-            MaterialButton(
-              color: Theme.of(context).primaryColor,
-              child: Text(
-                'change',
-                style: TextStyle(color: Colors.white),
-              ),
+            ElevatedButton(
+              child: Text('change'),
               onPressed: () => null,
             ),
           ],
@@ -76,7 +73,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Future<void> main() async {
+void main() {
   runApp(
     MyApp(),
   );

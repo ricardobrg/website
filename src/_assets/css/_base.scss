@@ -48,6 +48,10 @@ body {
   overflow-x: hidden;
 }
 
+.container main {
+  overflow-x: hidden;
+}
+
 h1 {
   margin-bottom: bs-spacer(12);
 }
@@ -203,4 +207,11 @@ dd {
 
 .table-wrapper {
   overflow-x: auto;
+}
+
+.searchbar {
+  > * {
+    max-width: 640px;
+    width:100%
+  }
 }
